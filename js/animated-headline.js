@@ -62,8 +62,19 @@ jQuery(document).ready(function($){
 			};
 
 			//trigger animation
-			setTimeout(function(){ hideWord( headline.find('.is-visible').eq(0) ) }, duration);
+			if(headline.hasClass('fade-words')) {
+				setTimeout(function(){ fadeWord(headline.find('.is-visible').eq(0)) }, duration);
+			} else {
+				setTimeout(function(){ hideWord( headline.find('.is-visible').eq(0) ) }, duration);
+			}
 		});
+	}
+
+	function fadeWord($word) {
+		var nextWord = takeNext($word);
+		$word.removeClass('is-visible').addClass('is-hidden');
+		nextWord.removeClass('is-hidden').addClass('is-visible');
+		setTimeout(function(){ fadeWord(nextWord); }, animationDelay);
 	}
 
 	function hideWord($word) {

@@ -20,7 +20,7 @@
 
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="css/templatemo-tiya-golf-club.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
         
     </head>
     
@@ -38,10 +38,6 @@
                         </span>
                     </a>
 
-                    <div class="d-lg-none ms-auto me-3">
-                        <a class="btn custom-btn custom-border-btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Member Login</a>
-                    </div>
-    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -53,19 +49,19 @@
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link" class="active" href="wellness.html">Wellness</a>
+                                <a class="nav-link" href="wellness.html">Wellness</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_3">Pobyt</a>
+                                <a class="nav-link" href="pobyt.html">Pobyt</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_4">Galeria</a>
+                                <a class="nav-link" href="galeria.html">Galeria</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_5">Kontakt</a>
+                                <a class="nav-link" href="kontakt.html">Kontakt</a>
                             </li>
 
                         </ul>
@@ -470,10 +466,24 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
-        <script src="js/click-scroll.js"></script>
         <script src="js/animated-headline.js"></script>
         <script src="js/modernizr.js"></script>
         <script src="js/custom.js"></script>
+
+        <script>
+          // Highlight active nav link based on current page
+          document.addEventListener('DOMContentLoaded', function() {
+            var path = window.location.pathname.split('/').pop();
+            if (!path) path = 'index.html';
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+              if (link.getAttribute('href') === path) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          });
+        </script>
 
     </body>
 </html>

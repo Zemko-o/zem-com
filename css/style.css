@@ -161,6 +161,7 @@ strong {
 /*---------------------------------------
   ANIMATED HEADLINE               
 -----------------------------------------*/
+
 .cd-words-wrapper {
   display: inline-block;
   position: relative;
@@ -356,6 +357,40 @@ strong {
   }
 }
 
+.cd-headline.fade-words {
+  display: flex;
+  align-items: baseline;
+}
+.cd-headline.fade-words > span:first-child {
+  display: inline-block;
+  vertical-align: baseline;
+  margin-right: 0.18em; /* Reduced space for more natural look */
+}
+.cd-headline.fade-words .cd-words-wrapper {
+  display: inline-block;
+  vertical-align: baseline;
+  min-width: 3.5em;
+  margin-left: 0; /* Remove extra left margin */
+}
+.cd-headline.fade-words .cd-words-wrapper b {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity 0.6s;
+  display: inline-block;
+  vertical-align: baseline;
+}
+.cd-headline.fade-words .cd-words-wrapper b.is-visible {
+  opacity: 1;
+  position: relative;
+  z-index: 2;
+}
+.cd-headline.fade-words .cd-words-wrapper b.is-hidden {
+  opacity: 0;
+  z-index: 1;
+}
+
 
 /*---------------------------------------
   CUSTOM BUTTON               
@@ -405,32 +440,8 @@ strong {
 
 
 /*---------------------------------------
-  NAVIGATION BAR & OFFCANVAS              
+  NAVIGATION BAR              
 -----------------------------------------*/
-.offcanvas {
-  background-color: var(--primary-color);
-  padding: 30px;
-}
-
-.offcanvas.offcanvas-end {
-  border-left: 0;
-}
-
-.offcanvas-header .btn-close {
-  transition: all 0.3s;
-}
-
-.offcanvas-header .btn-close:hover {
-  transform: rotate(180deg);
-}
-
-.offcanvas svg {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-
 .sticky-wrapper {
   position: absolute;
   top: 0;
@@ -440,13 +451,17 @@ strong {
 
 .sticky-wrapper.is-sticky .navbar {
   background-color: rgb(61 64 91);
+  padding-top: 0px;
+  padding-bottom: 0px;
+  min-height: 60px;
 }
 
 .navbar {
   background: transparent;
   z-index: 99;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  min-height: 60px;
 }
 
 .navbar-brand,
@@ -470,6 +485,7 @@ strong {
 .navbar-brand-image {
   width: 100px;
   height: auto;
+  max-height: none;
 }
 
 .navbar-brand-text {
