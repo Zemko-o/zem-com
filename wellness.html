@@ -140,11 +140,16 @@
       </div>
 
       <!-- Text naľavo -->
-      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0" style="padding-right: 150px;">
+      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0 text-lg-start text-center px-3 px-md-5">
         <br><br><br>
         <h3 class="mb-3">Wellness centrum</h3>
         <p><strong>Zem-Zen</strong>, je privátne wellness centrum, kde si v úplnom súkromí môžete dopriať zaslúžený oddych. Nájdete u nás štyri druhy sáun – infra, bylinnú, parnú a fínsku, vírivku a oddychovú zónu.</p>
         <p>Ponúkame viacero tematických balíčkov, či už túžite po romantike, regenerácii alebo chvíľke pokoja s rodinou či priateľmi.</p>
+      </div>
+
+      <!-- Nadpis pre MOBIL -->
+      <div class="col-12 text-center d-block d-md-none mb-1">
+        <h4>Čo ponúkame</h4>
       </div>
 
       <!-- Obrázky vpravo -->
@@ -175,8 +180,8 @@
             </div>
           </div>
 
-          <!-- Nadpis medzi obrázkami -->
-          <div class="col-12 text-center mb-0" style="margin-top: 0 !important;">
+          <!-- Nadpis pre POČÍTAČ -->
+          <div class="col-12 text-center d-none d-md-block mb-0" style="margin-top: 0 !important;">
             <h4>Čo ponúkame</h4>
           </div>
 
@@ -225,8 +230,23 @@
 <section class="membership-section section-padding" id="section_3">
   <div class="container">
     <div class="row">
+
+      <!-- Text napravo -->
+     <div class="col-lg-5 col-12 mb-4 mb-lg-0 text-lg-start text-center ps-lg-5 pe-lg-5 px-3 order-1 order-lg-2">
+        <br><br><br><br>
+        <h3 class="mb-3">Vyberte si svoj relax</h3>
+        <p>Pozri si našu ponuku a nájdi ten pravý relax – presne podľa seba.
+          Naše balíčky sú navrhnuté tak, aby ti poskytli maximálny komfort – či už túžiš po luxusnom rande, regenerácii po náročnom dni, alebo len po tichu a teple bez rušivých vplyvov.</p>
+        <p>Stačí si vybrať a <strong style="color: #C10001;">nechať sa rozmaznávať</strong>.</p>
+      </div>
+
+      <!-- Nadpis pre MOBIL pod textom, pred obrázkami -->
+      <div class="col-12 text-center d-block d-md-none mb-2 order-2">
+        <h4>Zem-Zen Balíčky</h4>
+      </div>
+
       <!-- Obrázky naľavo -->
-      <div class="col-lg-7 col-12">
+      <div class="col-lg-7 col-12 order-2 order-lg-1">
         <div class="row">
           <!-- Klasik -->
           <div class="col-md-6 col-12 mb-2">
@@ -257,17 +277,21 @@
               </div>
             </div>
           </div>
-          <div class="col-12 text-center mb-0" style="margin-top: 0 !important;">
+          <!-- Nadpis pre POČÍTAČ -->
+          <div class="col-12 text-center d-none d-md-block mb-2">
             <h4>Zem-Zen Balíčky</h4>
           </div>
           <!-- Romantika -->
           <div class="col-md-12 col-12">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="images/romantika.png" class="member-block-image img-fluid" alt="Romantika">
+                 <!-- Desktop obrázok -->
+                <img src="images/romantika.png" class="member-block-image img-fluid d-none d-md-block" alt="Romantika">
+                <!-- Mobilný obrázok -->
+                <img src="images/romantika_mobil.png" class="member-block-image img-fluid d-block d-md-none" alt="Romantika">
                 <div class="hover-text">
                   <p class="text head fw-bold">Romantika</p>
-                  <span><em>Stvorený pre tých, čo si chcú dopriať viac luxusu a romantiky. <br> Vhodné na výročia alebo výnimočné chvíle vo dvojici.</em><br><br>
+                  <span><em>Stvorený pre tých, čo si chcú dopriať viac luxusu a romantiky. Vhodné na výročia alebo výnimočné chvíle vo dvojici.</em><br><br>
                     Všetko z balíka Exkluzív, obohatené o jemnú romantickú výzdobu a rôzne pochúťky. <br> Pre maximálne pohodlie je k dispozícii aj odvoz na/z wellness.</span>
                 </div>
                  <div class="price">40€</div>
@@ -275,14 +299,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Text napravo -->
-      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0" style="padding-left: 150px;"><br><br><br><br>
-        <h3 class="mb-3">Vyberte si svoj relax</h3>
-        <p>Pozri si našu ponuku a nájdi ten pravý relax – presne podľa seba.
-          Naše balíčky sú navrhnuté tak, aby ti poskytli maximálny komfort – či už túžiš po luxusnom rande, regenerácii po náročnom dni, alebo len po tichu a teple bez rušivých vplyvov.</p>
-        <p>Stačí si vybrať a <strong style="color: #C10001;">nechať sa rozmaznávať</strong>.</p>
       </div>
     </div>
   </div>
@@ -822,6 +838,64 @@
   filter: grayscale(10%) brightness(95%);
   transition: filter 0.4s ease;
 }
+
+@media (max-width: 768px) {
+  /* Zarovnanie textov na stred */
+  .about-section .col-lg-5,
+  .membership-section .col-lg-5 {
+    text-align: center; /* Zarovná texty na stred horizontálne */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Zarovná texty na stred vertikálne */
+    align-items: center; /* Zarovná texty na stred horizontálne */
+    height: auto; /* Uistite sa, že výška sa prispôsobí obsahu */
+  }
+
+  .about-section .col-lg-5 h3,
+  .membership-section .col-lg-5 h3 {
+    text-align: center; /* Zarovná nadpisy na stred */
+    margin-bottom: 15px; /* Pridá medzeru pod nadpis */
+  }
+
+  .about-section .col-lg-5 p,
+  .membership-section .col-lg-5 p {
+    text-align: center; /* Zarovná odseky na stred */
+    margin-bottom: 10px; /* Pridá medzeru medzi odsekmi */
+  }
+
+  /* Odstránenie paddingu pre lepšie zarovnanie */
+  .about-section .col-lg-5,
+  .membership-section .col-lg-5 {
+    padding: 15px; /* Pridá padding okolo textu */
+  }
+
+  .about-section .row {
+    flex-direction: column; /* Zabezpečí, že prvky budú pod sebou */
+  }
+
+}
+
+
+@media (max-width: 768px) {
+  .about-section .col-lg-5,
+  .membership-section .col-lg-5 {
+    text-align: center !important;
+    padding: 15px;
+    margin-bottom: 2rem;
+  }
+
+  .about-section .col-lg-5 h3,
+  .membership-section .col-lg-5 h3 {
+    text-align: center !important;
+  }
+
+  .about-section .col-lg-5 p,
+  .membership-section .col-lg-5 p {
+    text-align: center !important;
+  }
+}
+
+
     </style>
     </body>
 </html>
