@@ -203,49 +203,71 @@
             </section>
 
 
-            <section class="membership-section section-padding" id="section_3">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-12 col-12 text-center">
-                            <h2 class="mb-lg-5 mb-4">Zem-Zen Balíčky</h2>
-                        </div>
-
-                        <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-                            <h3 class="mb-3">Pohodlie a štandart</h3>
-
-                            <p><strong>Zem-Stay</strong>, je chatka s nádherným moderným vybavením. Môžete si oddýchnuť na kraji prírody ďaleko od mestského ruchu a slnečného smogu.</p>
-
-                            <p>Aj napriek tomu že budete v pokoji prírody naše ubytovanie je stále moderne vybavené s elektrikou, vodou, televízorom a internetovým pripojením</p>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-                            <div class="member-block">
-                                <div class="member-block-image-wrap">
-                                    <img src="images/pic1.jpeg" class="member-block-image img-fluid" alt="">
-
-                                    
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="member-block">
-                                <div class="member-block-image-wrap">
-                                    <img src="images/pic2.jpeg" class="member-block-image img-fluid" alt="">
-
-                                    
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
-                    </div>
+<section class="membership-section section-padding" id="section_3">
+  <div class="container">
+    <div class="row">
+      <!-- Obrázky naľavo -->
+      <div class="col-lg-7 col-12">
+        <div class="row">
+          <!-- Klasik -->
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="images/klasik.png" class="member-block-image img-fluid" alt="Klasik">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Klasik</p>
+                  <span><em>Ideálny pre každého, kto si chce v pokoji oddýchnuť a načerpať novú energiu.</em><br><br>
+                    Balík Klasik zahŕňa úplné súkromie, vírivku, 2 druhy sáun (fínsku a infra), oddychovú zónu a vlastnú hudbu.</span>
                 </div>
-            </section>
+                <div class="price">15€</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exkluzív -->
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="images/exklusive.png" class="member-block-image img-fluid" alt="Exkluzív">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Exkluzív</p>
+                  <span><em>Vhodný pre tých, ktorí si radi doprajú niečo navyše a chcú sa nechať rozmaznávať.</em><br><br>
+                    Balík Exkluzív obsahuje všetko z balíka Klasik, doplnené o šampanské (alko alebo nealko) a bonboniéru pre dokonalý zážitok.</span>
+                </div>
+              <div class="price">25€</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 text-center mb-0" style="margin-top: 0 !important;">
+            <h4>Zem-Zen Balíčky</h4>
+          </div>
+          <!-- Romantika -->
+          <div class="col-md-12 col-12">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="images/romantika.png" class="member-block-image img-fluid" alt="Romantika">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Romantika</p>
+                  <span><em>Stvorený pre tých, čo si chcú dopriať viac luxusu a romantiky. <br> Vhodné na výročia alebo výnimočné chvíle vo dvojici.</em><br><br>
+                    Všetko z balíka Exkluzív, obohatené o jemnú romantickú výzdobu a rôzne pochúťky. <br> Pre maximálne pohodlie je k dispozícii aj odvoz na/z wellness.</span>
+                </div>
+                 <div class="price">40€</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text napravo -->
+      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0" style="padding-left: 150px;"><br><br><br><br>
+        <h3 class="mb-3">Vyberte si svoj relax</h3>
+        <p>Pozri si našu ponuku a nájdi ten pravý relax – presne podľa seba.
+          Naše balíčky sú navrhnuté tak, aby ti poskytli maximálny komfort – či už túžiš po luxusnom rande, regenerácii po náročnom dni, alebo len po tichu a teple bez rušivých vplyvov.</p>
+        <p>Stačí si vybrať a <strong style="color: #C10001;">nechať sa rozmaznávať</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <section class="events-section section-bg section-padding" id="section_4">
@@ -769,6 +791,45 @@
 .hover-text span {
   font-size: 0.9rem;
   line-height: 1.5;
+}
+
+/* Cena v kruhu */
+.member-block-image-wrap .price {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: #C10001;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+/* Zobrazenie ceny pri hovernutí */
+.member-block-image-wrap:hover .price {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.member-block {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Jemný tieň */
+  border-radius: 10px; /* Voliteľné: zaoblené rohy */
+  transition: box-shadow 0.3s ease; /* Plynulý prechod pri hover */
+}
+
+.member-block-image {
+  filter: grayscale(10%) brightness(95%);
+  transition: filter 0.4s ease;
 }
     </style>
     </body>
