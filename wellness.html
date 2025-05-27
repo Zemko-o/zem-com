@@ -21,7 +21,26 @@
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
         <link href="css/style.css" rel="stylesheet">
-        
+
+        <!-- Flatpickr CSS for modern date picker -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <style>
+          /* Optional: Custom style to match your form */
+          .flatpickr-calendar {
+            font-family: 'DM Sans', Arial, sans-serif;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+          }
+          .flatpickr-day.today, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay, .flatpickr-day.disabled {
+            background: #eee !important;
+            color: #bbb !important;
+            cursor: not-allowed;
+          }
+          .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+            background: #81B29A !important;
+            color: #fff !important;
+          }
+        </style>
     </head>
     
     <body>
@@ -270,119 +289,70 @@
 </section>
 
 
-<section class="events-section section-bg section-padding" id="section_4">
+<section class="booking-section section-bg section-padding" id="section_4">
   <div class="container px-4">
-    <h2 class="text-center mb-5">Čo o nás hovoria naši zákazníci</h2>
-    <div class="review-slider">
-      <div class="review-track">
-        <!-- Recenzie -->
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Veľmi pekné to tam máte, útulné, hezké. Človek sa tam dobre cíti."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Emka</div>
+    <h2 class="text-center mb-5">Rezervujte si svoj wellness zážitok</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-10 col-12">
+        <form class="custom-form booking-form p-4 shadow-sm bg-white rounded" autocomplete="off">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="full-name" name="full-name" placeholder="Vaše meno" required>
+                <label for="full-name">Vaše meno</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Váš email" required>
+                <label for="email">Váš email</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Telefón" required pattern="[0-9+ ]*">
+                <label for="phone">Telefón</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <select class="form-select" id="package" name="package" required>
+                  <option value="" disabled selected>Vyberte balíček</option>
+                  <option value="klasik">Klasik</option>
+                  <option value="exkluziv">Exkluzív</option>
+                  <option value="romantika">Romantika</option>
+                </select>
+                <label for="package">Balíček</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="date" name="date" required>
+                <label for="date">Dátum</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <select class="form-select" id="timeslot" name="timeslot" required>
+                  <option value="" disabled selected>Vyberte čas</option>
+                  <option value="14:30-16:30">14:30 – 16:30</option>
+                  <option value="17:00-19:00">17:00 – 19:00</option>
+                  <option value="19:00-21:00">19:30 – 21:30</option>
+                </select>
+                <label for="timeslot">Časový úsek</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating mb-3">
+                <textarea class="form-control" id="notes" name="notes" placeholder="Poznámka" style="height: 100px;"></textarea>
+                <label for="notes">Poznámka (nepovinné)</label>
+              </div>
+            </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary px-5 py-2">Odoslať rezerváciu</button>
+            </div>
           </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Bolo nám krásne, určite ešte prídeme."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-            <div class="review-name fw-semibold">Marika</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Byli jsme moc spokojený určitě to nebyla poslední návšteva."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Nikolette</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Wellness bol super. Veľmi príjemné priestory na oddýchnutie či už lehátka, sauny aj veľká vírivka. Pekné prostredie na oddych s krásnou vôňou a kľudom."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Janko</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Cítili sme sa u vás veľmi príjemne, wellness je krásny, moderný a príjemne zariadený. Určite sa ku vám ešte vrátime a budeme vás odporúčať aj našim známim."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Mária</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Všetko bolo super, odišli sme veľmi spokojní a neboli sme u vás naposledy."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Marika</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Wellness bol výborný, krásne to je spravené. Teším sa na ďaľšiu návštevu."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Mima</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Cítili sme sa skvelo, akurát možno ochladzovacia kaďa nám chýbala. Ale dali sme si studenú sprchu."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Barbora</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Wellness bol super. A určite sa ku vám ešte vrátime."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Julka</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Vynikajúce odporúčam maximálne súkromie."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Johni</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Wellness bol úžasný, príjemne sme si oddýchli."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Paťka</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Všetko bolo super, veľmi sme si to užili a ďakujeme určite sa radi vrátime."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Katka</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Wellness s príjemnou atmosférou a maximálnym súkromím. Priestory sú útulné, čisté a starostlivo udržiavané. Radi sa sem opäť vrátime a s radosťou odporúčame ďalej."</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Marika</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Sme nadmieru spokojní. Najlepší wellness na akom sme boli :) súkromie, skvelá vírivka, vybavenie. Oddýchli sme si a prídeme aj nabudúce 🫶"</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Jannka</div>
-          </div>
-        </div>
-        <div class="testimonial p-4 text-center shadow-sm bg-white rounded h-100">
-          <p class="mb-3 fst-italic">"Ďakujeme veľmi veľmi pekne. Veľmi sme si oddýchli a určite ešte prídeme!"</p>
-          <div class="review-footer">
-            <div class="text-warning stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="review-name fw-semibold">Veronika</div>
-          </div>
-        </div>
-        <!-- Duplikácia pre nekonečný efekt (voliteľné) -->
-        <!-- ... -->
+        </form>
       </div>
     </div>
   </div>
@@ -521,18 +491,38 @@
         <script src="js/animated-headline.js"></script>
         <script src="js/modernizr.js"></script>
         <script src="js/custom.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
-  // Highlight 'Wellness' as active on the wellness page
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link, idx) {
-      if(idx === 1) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
-  });
-</script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Flatpickr on the booking form date input
+        var dateInput = document.querySelector('#date');
+        if(dateInput) {
+          flatpickr(dateInput, {
+            minDate: new Date().fp_incr(1), // disables today and all past dates
+            dateFormat: 'Y-m-d',
+            disable: [
+              function(date) {
+                // Disable today and all past dates
+                var today = new Date();
+                today.setHours(0,0,0,0);
+                return date <= today;
+              }
+            ],
+            locale: {
+              firstDayOfWeek: 1,
+              weekdays: {
+                shorthand: ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],
+                longhand: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota']
+              },
+              months: {
+                shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+                longhand: ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December']
+              }
+            }
+          });
+        }
+      });
+    </script>
 <script 
     id="setmore_script" type="text/javascript" src="https://assets.setmore.com/integration/static/setmoreIframeLive.js">
 </script>
