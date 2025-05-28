@@ -709,6 +709,22 @@ strong {
   z-index: 22;
 }
 
+.galeria-hero-title {
+  color: #F2CC8F;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+@media (max-width: 700px) {
+  .galeria-hero-title {
+    font-size: 2.1rem;
+  }
+}
+
 
 /*---------------------------------------
   BACKGROUND IMAGE SECTION        
