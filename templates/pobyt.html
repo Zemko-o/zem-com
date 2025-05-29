@@ -97,50 +97,75 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
             </section>
 
+<section class="about-section section-padding" id="section_2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-12 text-center">
+      </div>
 
-            <section class="about-section section-padding" id="section_2">
-                <div class="container">
-                    <div class="row">
+      <!-- Text naľavo -->
+      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0 text-lg-start text-center px-3 px-md-5">
+        <br><br><br>
+        <h3 class="mb-3">Príroda a Súkromie</h3>
+        <p><strong>Naša chatka</strong>, bude pre vás ideálna či už idete v dvojici alebo skupine s kapacitou až 5 ľudí.</p>
+        <p>Aj napriek tomu že sa budete nachádzať v srdci prírody je vybavenie moderné. Máme plne funkčnú kuchyňu vybavenú elektrickým šporákom, mikrovlnkou, rýchlovarnou kanvicou, teplovzdušnou fritézou a rúrou. V obývačke je 70 palcová televízia a v celej chatke je stropné kúrenie a Wifi. </p>      </div>
 
-                        <div class="col-lg-12 col-12 text-center">
-                            <h2 class="mb-lg-5 mb-4">"Chatka"</h2>
-                        </div>
+      <!-- Nadpis pre MOBIL -->
+      <div class="col-12 text-center d-block d-md-none mb-1">
+        <h4>Exteriér</h4>
+      </div>
 
-                        <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-                            <h3 class="mb-3">Príroda a Súkromie</h3>
-
-                            <p><strong>Naša chatka</strong>,bude pre vás ideálna či už idete v dvojici alebo skupine s kapacitou až 5 ľudí.</p>
-
-                            <p>Aj napriek tomu že sa budete nachádzať v srdci prírody je vybavenie moderné. Máme plne funkčnú kuchyňu vybavenú elektrickým šporákom, mikrovlnkou, rýchlovarnou kanvicou, teplovzdušnou fritézou a rúrou. V obývačke je 70 palcová televízia a v celej chatke je stropné kúrenie a Wifi. </p>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-                            <div class="member-block">
-                                <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic1.jpeg') }}" class="member-block-image img-fluid" alt="">
-
-                                    
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="member-block">
-                                <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic7.jpeg') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 250px; width: 100%;">
-
-                                    
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
-                    </div>
+      <!-- Obrázky vpravo -->
+      <div class="col-lg-7 col-12">
+        <div class="row">
+          <!-- Dva obrázky hore -->
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="{{ url_for('static', filename='images/pic8.jpeg') }}" class="member-block-image img-fluid" alt="Vírivka s hydromasážnymi tryskami">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Text</p>
+                  <span>Text</span>
                 </div>
-            </section>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="{{ url_for('static', filename='images/pic9.jpeg') }}" class="member-block-image img-fluid" alt="Sauna">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Text</p>
+                  <span>Text.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nadpis pre POČÍTAČ -->
+          <div class="col-12 text-center d-none d-md-block mb-0" style="margin-top: 0 !important;">
+            <h4>Exteriér</h4>
+          </div>
+
+          <!-- Jeden obrázok dole -->
+          <div class="col-md-12 col-12">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="{{ url_for('static', filename='images/pic10.jpeg') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 350px; width: 100%;">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Text</p>
+                  <span>Text</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
             <section class="section-bg-image">
@@ -163,50 +188,78 @@
                 <svg viewBox="0 0 1265 144" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="rgba(255, 255, 255, 1)" d="M 0 40 C 164 40 164 20 328 20 L 328 20 L 328 0 L 0 0 Z" stroke-width="0"></path> <path fill="rgba(255, 255, 255, 1)" d="M 327 20 C 445.5 20 445.5 89 564 89 L 564 89 L 564 0 L 327 0 Z" stroke-width="0"></path> <path fill="rgba(255, 255, 255, 1)" d="M 563 89 C 724.5 89 724.5 48 886 48 L 886 48 L 886 0 L 563 0 Z" stroke-width="0"></path><path fill="rgba(255, 255, 255, 1)" d="M 885 48 C 1006.5 48 1006.5 67 1128 67 L 1128 67 L 1128 0 L 885 0 Z" stroke-width="0"></path><path fill="rgba(255, 255, 255, 1)" d="M 1127 67 C 1196 67 1196 0 1265 0 L 1265 0 L 1265 0 L 1127 0 Z" stroke-width="0"></path></svg>
             </section>
 
+<section class="membership-section section-padding" id="section_3">
+  <div class="container">
+    <div class="row">
 
-            <section class="membership-section section-padding" id="section_3">
-                <div class="container">
-                    <div class="row">
+      <!-- Text napravo -->
+     <div class="col-lg-5 col-12 mb-4 mb-lg-0 text-lg-start text-center ps-lg-5 pe-lg-5 px-3 order-1 order-lg-2">
+        <br><br><br><br>
+        <h3 class="mb-3">Relax a pohodlie</h3>
+        <p><strong>Naša chatka</strong>, je ideálna pre všetkých čo si chcú ísť na chvílu oddýchnuť od bežných vecí a problémov. Kúsok od chatky totižto nájdete privátne wellness centrum <strong>Zem - Zen</strong> v ktoróm vás radi počas vášho pobytu uvítame so zľavou</p>
 
-                        <div class="col-lg-12 col-12 text-center">
-                            <h2 class="mb-lg-5 mb-4"></h2>
-                        </div>
+        <p></p>
+      </div>
 
-                        <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-                            <h3 class="mb-3">Relax a pohodlie</h3>
+      <!-- Nadpis pre MOBIL pod textom, pred obrázkami -->
+      <div class="col-12 text-center d-block d-md-none mb-2 order-2">
+        <h4>Interiér</h4>
+      </div>
 
-                            <p><strong>Naša chatka</strong>, je ideálna pre všetkých čo si chcú ísť na chvílu oddýchnuť od bežných vecí a problémov. Kúsok od chatky totižto nájdete privátne wellness centrum <strong>Zem - Zen</strong> v ktoróm vás radi počas vášho pobytu uvítame so zľavou</p>
-
-                            <p></p>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-                            <div class="member-block">
-                                <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic1.jpeg') }}" class="member-block-image img-fluid" alt="">
-
-                                    
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="member-block">
-                                <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic2.jpeg') }}" class="member-block-image img-fluid" alt="">
-
-                                    
-                                </div>
-
-                                
-                            </div>
-                        </div>
-
-                    </div>
+      <!-- Obrázky naľavo -->
+      <div class="col-lg-7 col-12 order-2 order-lg-1">
+        <div class="row">
+          <!-- Klasik -->
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="{{ url_for('static', filename='images/klasik.png') }}" class="member-block-image img-fluid" alt="Klasik">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Klasik</p>
+                  <span><em>Text</em><br><br>
+                    Text</span>
                 </div>
-            </section>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exkluzív -->
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="{{ url_for('static', filename='images/exklusive.png')}}" class="member-block-image img-fluid" alt="Exkluzív">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Exkluzív</p>
+                  <span><em>Text.</em><br><br>
+                    Text.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Nadpis pre POČÍTAČ -->
+          <div class="col-12 text-center d-none d-md-block mb-0">
+            <h4>Interiér</h4>
+          </div>
+          <!-- Romantika -->
+          <div class="col-md-12 col-12">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                 <!-- Desktop obrázok -->
+                <img src="{{ url_for('static', filename ='images/romantika.png')}}" class="member-block-image img-fluid d-none d-md-block" alt="Romantika">
+                <!-- Mobilný obrázok -->
+                <img src="{{ url_for('static', filename ='images/romantika_mobil.png')}}" class="member-block-image img-fluid d-block d-md-none" alt="Romantika">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Text</p>
+                  <span><em>Text.</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <section class="events-section section-bg section-padding" id="section_4">
@@ -647,6 +700,143 @@
     margin-bottom: 0.8rem; /* Menší spodný margin */
   }
 }
+
+@media (max-width: 768px) {
+  /* Zarovnanie textov na stred */
+  .about-section .col-lg-5,
+  .membership-section .col-lg-5 {
+    text-align: center; /* Zarovná texty na stred horizontálne */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Zarovná texty na stred vertikálne */
+    align-items: center; /* Zarovná texty na stred horizontálne */
+    height: auto; /* Uistite sa, že výška sa prispôsobí obsahu */
+  }
+
+  .about-section .col-lg-5 h3,
+  .membership-section .col-lg-5 h3 {
+    text-align: center; /* Zarovná nadpisy na stred */
+    margin-bottom: 15px; /* Pridá medzeru pod nadpis */
+  }
+
+  .about-section .col-lg-5 p,
+  .membership-section .col-lg-5 p {
+    text-align: center; /* Zarovná odseky na stred */
+    margin-bottom: 10px; /* Pridá medzeru medzi odsekmi */
+  }
+
+  /* Odstránenie paddingu pre lepšie zarovnanie */
+  .about-section .col-lg-5,
+  .membership-section .col-lg-5 {
+    padding: 15px; /* Pridá padding okolo textu */
+  }
+
+  .about-section .row {
+    flex-direction: column; /* Zabezpečí, že prvky budú pod sebou */
+  }
+
+}
+
+
+@media (max-width: 768px) {
+  .about-section .col-lg-5,
+  .membership-section .col-lg-5 {
+    text-align: center !important;
+    padding: 15px;
+    margin-bottom: 2rem;
+  }
+
+  .about-section .col-lg-5 h3,
+  .membership-section .col-lg-5 h3 {
+    text-align: center !important;
+  }
+
+  .about-section .col-lg-5 p,
+  .membership-section .col-lg-5 p {
+    text-align: center !important;
+  }
+}
+
+
+.member-block-image-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.hover-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.787); /* Tmavšie pozadie pre lepšiu čitateľnosť */
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column; /* Zarovnanie textu do stĺpca */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.95em;
+  font-weight: 500;
+}
+
+.member-block-image-wrap:hover .hover-text {
+  opacity: 1;
+}
+
+.hover-text p {
+  font-size: 1.2rem;
+  color:rgba(230, 221, 221, 0.679);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hover-text span {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Cena v kruhu */
+.member-block-image-wrap .price {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: #C10001;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+/* Zobrazenie ceny pri hovernutí */
+.member-block-image-wrap:hover .price {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.member-block {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Jemný tieň */
+  border-radius: 10px; /* Voliteľné: zaoblené rohy */
+  transition: box-shadow 0.3s ease; /* Plynulý prechod pri hover */
+}
+
+.member-block-image {
+  filter: grayscale(10%) brightness(95%);
+  transition: filter 0.4s ease;
 </style>
 <script>
 // Set min date for booking form to tomorrow (no current or previous dates allowed)
