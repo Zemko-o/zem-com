@@ -305,7 +305,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="date" name="date" required placeholder="Vyberte dátum">
+                <input type="text" class="form-control" id="date" name="date" required placeholder="Vyberte dátum" data-input>
                 <label for="date">Dátum</label>
               </div>
             </div>
@@ -405,6 +405,7 @@ fetch('/booked-dates')
       dateFormat: "d/m/Y",
       minDate: new Date().fp_incr(1),
       locale: { firstDayOfWeek: 1 },
+      disableMobile: false, 
       onDayCreate: function(dObj, dStr, fp, dayElem) {
         // dayElem.dateObj je JS Date objekt
         const d = dayElem.dateObj;
@@ -552,7 +553,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <style>
-
+.flatpickr-calendar {
+  font-size: 1rem;
+  z-index: 9999 !important;
+}
 
   .flatpickr-day.booked-day {
   background: #ff4d4d87 !important;
@@ -916,7 +920,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 }
-
+@media (max-width: 768px) {
+  .member-block-image {
+    object-fit: cover;
+    object-position: top center; /* Orezáva viac zhora, zo spodu vidíš viac */
+    height: 220px !important;    /* Prispôsob výšku podľa potreby */
+    width: 100%;
+  }
+}
 
 @media (max-width: 768px) {
   .about-section .col-lg-5,
