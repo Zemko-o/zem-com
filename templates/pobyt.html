@@ -253,78 +253,6 @@
 </section>
 
 
-            <section class="contact-section section-padding" id="section_5">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-5 col-12">
-                            <form action="https://formsubmit.co/zem-zen@gacel.sk" method="POST" class="custom-form contact-form" role="form">
-                                <h2 class="mb-4 pb-2">Kontaktujte nás</h2>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-floating">
-                                            <input type="text" name="full-name" id="full-name" class="form-control" placeholder="Full Name" required="">
-                                            
-                                            <label for="floatingInput">Vaše meno</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12"> 
-                                        <div class="form-floating">
-                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
-                                            
-                                            <label for="floatingInput">vaša emailová adresa</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12 col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
-                                            
-                                            <label for="floatingTextarea">Správa</label>
-                                        </div>
-
-                                        <button type="submit" class="form-control">Odoslať</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-lg-6 col-12">
-                            <div class="contact-info mt-5">
-                                <div class="contact-info-item">
-                                    <div class="contact-info-body">
-                                        <strong>Dolný Kubín, Slovensko</strong>
-
-                                        <p class="mt-2 mb-1">
-                                            <a href="tel: +421901701011" class="contact-link">
-                                                +421
-                                                901 701 011
-                                            </a>
-                                        </p>
-
-                                        <p class="mb-0">
-                                            <a href="mailto:zem-zen@gacel.sk" class="contact-link">
-                                                zem-zen@gacel.sk
-                                            </a>
-                                        </p>
-                                    </div>
-
-                                    <div class="contact-info-footer">
-                                        <a href="https://maps.app.goo.gl/VVedfCsYFKrk4pay9" target="_blank" rel="noopener">Ako sa ku nám dostať?</a>
-                                    </div>
-                                </div>
-
-                                <img src="{{ url_for('static', filename='images/WorldMap.svg') }}" class="img-fluid" alt="">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-        </main>
-
         <footer class="site-footer">
             <div class="container">
                 <div class="row">
@@ -340,7 +268,7 @@
                     </div>
 
                     <div class="col-lg-3 col-12">
-                        <h5 class="site-footer-title mb-4">Vyberte si termín</h5>
+                        <h5 class="site-footer-title mb-4 mt-4">Vyberte si termín</h5>
 
                         <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
                             <span>Pon-Štv</span>
