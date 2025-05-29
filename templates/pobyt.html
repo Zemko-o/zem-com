@@ -16,11 +16,10 @@
 
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <link href="css/bootstrap-icons.css" rel="stylesheet">
-
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        
 
         <!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -32,47 +31,45 @@
         <main>
 
             <nav class="navbar navbar-expand-lg">                
-                <div class="container">
-                    <a class="navbar-brand d-flex align-items-center" href="index.html">
-                        <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="Zem-Com">
-                        <span class="navbar-brand-text" >
-                            Zem-Com
-                            <small></small>
-                        </span>
-                    </a>
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" class="navbar-brand-image img-fluid" alt="Zem-Com">
+                    <span class="navbar-brand-text">
+                        Zem-Com
+                        <small></small>
+                    </span>
+                </a>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-    
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-lg-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Domov</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link" href="wellness.html">Wellness</a>
-                            </li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="pobyt.html">Pobyt</a>
-                            </li>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Domov</a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="galeria.html">Galeria</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('wellness') }}">Wellness</a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="kontakt.html">Kontakt</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('pobyt') }}">Pobyt</a>
+                        </li>
 
-                        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('galeria') }}">Galéria</a>
+                        </li>
 
-                        
-                    </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('kontakt') }}">Kontakt</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
 
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
@@ -120,7 +117,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="images/pic1.jpeg" class="member-block-image img-fluid" alt="">
+                                    <img src="{{ url_for('static', filename='images/pic1.jpeg') }}" class="member-block-image img-fluid" alt="">
 
                                     
                                 </div>
@@ -132,7 +129,7 @@
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="images/pic7.jpeg" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 250px; width: 100%;">
+                                    <img src="{{ url_for('static', filename='images/pic7.jpeg') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 250px; width: 100%;">
 
                                     
                                 </div>
@@ -186,7 +183,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="images/pic1.jpeg" class="member-block-image img-fluid" alt="">
+                                    <img src="{{ url_for('static', filename='images/pic1.jpeg') }}" class="member-block-image img-fluid" alt="">
 
                                     
                                 </div>
@@ -198,7 +195,7 @@
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="images/pic2.jpeg" class="member-block-image img-fluid" alt="">
+                                    <img src="{{ url_for('static', filename='images/pic2.jpeg') }}" class="member-block-image img-fluid" alt="">
 
                                     
                                 </div>
@@ -319,7 +316,7 @@
                                     </div>
                                 </div>
 
-                                <img src="images/WorldMap.svg" class="img-fluid" alt="">
+                                <img src="{{ url_for('static', filename='images/WorldMap.svg') }}" class="img-fluid" alt="">
                             </div>
                         </div>
 
@@ -334,7 +331,7 @@
 
                     <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
                         <a class="navbar-brand d-flex align-items-center" href="index.html">
-                            <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="">
+                            <img src="{{ url_for('static', filename='images/logo.png') }}" class="navbar-brand-image img-fluid" alt="">
                             <span class="navbar-brand-text">
                                 Zem-Com
                                 <small></small>
@@ -381,13 +378,13 @@
         </footer>
 
 
-        <!-- JAVASCRIPT FILES -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/jquery.sticky.js"></script>
-        <script src="js/animated-headline.js"></script>
-        <script src="js/modernizr.js"></script>
-        <script src="js/custom.js"></script>
+<!-- JAVASCRIPT FILES -->
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
+<script src="{{ url_for('static', filename='js/animated-headline.js') }}"></script>
+<script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
         <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
