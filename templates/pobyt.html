@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -10,13 +11,19 @@
 
         <!-- CSS FILES -->                
         <link rel="preconnect" href="https://fonts.googleapis.com">
+
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/bootstrap-icons.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/style.css" rel="stylesheet">
+
         <!-- Flatpickr CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         
     </head>
     
@@ -27,43 +34,45 @@
             <nav class="navbar navbar-expand-lg">                
                 <div class="container">
                     <a class="navbar-brand d-flex align-items-center" href="index.html">
-                       <img src="{{ url_for('static', filename='images/logo.png') }}" class="navbar-brand-image img-fluid" alt="Zem-Com">
+                        <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="Zem-Com">
                         <span class="navbar-brand-text" >
                             Zem-Com
                             <small></small>
                         </span>
                     </a>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Domov</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="wellness.html">Wellness</a>
+                            </li>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('index') }}">Domov</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pobyt.html">Pobyt</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('wellness') }}">Wellness</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="galeria.html">Galeria</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('pobyt') }}">Pobyt</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="kontakt.html">Kontakt</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('galeria') }}">Galéria</a>
-                        </li>
+                        </ul>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('kontakt') }}">Kontakt</a>
-                        </li>
-                    </ul>
+                        
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
 
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
@@ -111,7 +120,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic1.jpeg') }}" class="member-block-image img-fluid" alt="">
+                                    <img src="images/pic1.jpeg" class="member-block-image img-fluid" alt="">
 
                                     
                                 </div>
@@ -123,7 +132,7 @@
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic7.jpeg') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 250px; width: 100%;">
+                                    <img src="images/pic7.jpeg" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 250px; width: 100%;">
 
                                     
                                 </div>
@@ -169,7 +178,7 @@
                         <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
                             <h3 class="mb-3">Relax a pohodlie</h3>
 
-                            <p><strong>Naša chatka</strong>, je ideálna pre všetkých čo si chcú ísť na chvílu oddýchnuť od bežných vecí a problémov. Kúsok od chatky totižto nájdete privátne wellness centrum <strong>Zem - Zen</strong> v ktoróm vás radi počas vášho pobytu uvýtame so zľavou</p>
+                            <p><strong>Naša chatka</strong>, je ideálna pre všetkých čo si chcú ísť na chvílu oddýchnuť od bežných vecí a problémov. Kúsok od chatky totižto nájdete privátne wellness centrum <strong>Zem - Zen</strong> v ktoróm vás radi počas vášho pobytu uvítame so zľavou</p>
 
                             <p></p>
                         </div>
@@ -177,7 +186,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic1.jpeg') }}" class="member-block-image img-fluid" alt="">
+                                    <img src="images/pic1.jpeg" class="member-block-image img-fluid" alt="">
 
                                     
                                 </div>
@@ -189,7 +198,7 @@
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="{{ url_for('static', filename='images/pic2.jpeg') }}" class="member-block-image img-fluid" alt="">
+                                    <img src="images/pic2.jpeg" class="member-block-image img-fluid" alt="">
 
                                     
                                 </div>
@@ -252,7 +261,7 @@
                     <div class="row">
 
                         <div class="col-lg-5 col-12">
-                            <form action="http://localhost:5000/api/bookings" method="POST" class="custom-form contact-form" role="form">
+                            <form action="https://formsubmit.co/zem-zen@gacel.sk" method="POST" class="custom-form contact-form" role="form">
                                 <h2 class="mb-4 pb-2">Kontaktujte nás</h2>
 
                                 <div class="row">
@@ -310,7 +319,7 @@
                                     </div>
                                 </div>
 
-                                <img src="{{ url_for('static', filename='images/WorldMap.svg') }}" class="img-fluid" alt="">
+                                <img src="images/WorldMap.svg" class="img-fluid" alt="">
                             </div>
                         </div>
 
@@ -325,7 +334,7 @@
 
                     <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
                         <a class="navbar-brand d-flex align-items-center" href="index.html">
-                            <img src="{{ url_for('static', filename='images/logo.png') }}" class="navbar-brand-image img-fluid" alt="">
+                            <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="">
                             <span class="navbar-brand-text">
                                 Zem-Com
                                 <small></small>
@@ -372,13 +381,13 @@
         </footer>
 
 
-<!-- JAVASCRIPT FILES -->
-<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
-<script src="{{ url_for('static', filename='js/animated-headline.js') }}"></script>
-<script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
-<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/animated-headline.js"></script>
+        <script src="js/modernizr.js"></script>
+        <script src="js/custom.js"></script>
         <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
@@ -445,25 +454,24 @@
     }
     // --- Double booking prevention ---
     // Fetch existing bookings and disable booked dates in Flatpickr
-    fetch('http://localhost:5000/api/bookings') 
+    fetch('https://zem-com.onrender.com/api/bookings')
       .then(res => res.json())
       .then(bookings => {
         // Collect all booked date ranges (inclusive)
         let disabledDates = [];
         bookings.forEach(b => {
-          // Predpokladáme formát d/m/Y v CSV
-          let startParts = b.startDate.split('/');
-          let endParts = b.endDate.split('/');
-          let start = new Date(`${startParts[2]}-${startParts[1]}-${startParts[0]}`);
-          let end = new Date(`${endParts[2]}-${endParts[1]}-${endParts[0]}`);
+          let start = new Date(b.startDate);
+          let end = new Date(b.endDate);
+          // For each day in the range, except the last day (checkout is available)
           let d = new Date(start);
           while (d < end) {
             disabledDates.push(new Date(d));
             d.setDate(d.getDate() + 1);
           }
         });
+        // Flatpickr expects dates as strings in 'YYYY-MM-DD'
         disabledDates = disabledDates.map(d => d.toISOString().split('T')[0]);
-        // Použi disabledDates vo Flatpickr
+        // Re-initialize Flatpickr with disabled dates
         if (startInput) {
           flatpickr(startInput, {
             dateFormat: 'd/m/Y',
@@ -714,14 +722,6 @@
     margin-bottom: 0.8rem; /* Menší spodný margin */
   }
 }
-
-/* Pridaj do svojho CSS */
-.flatpickr-day.booked-day {
-  background: #e74c3c !important;
-  color: #fff !important;
-  border-radius: 50% !important;
-  opacity: 1 !important;
-}
 </style>
 <script>
 // Set min date for booking form to tomorrow (no current or previous dates allowed)
@@ -772,7 +772,7 @@ document.addEventListener('DOMContentLoaded', function() {
           notes
         };
         try {
-          const response = await fetch('http://localhost:5000/api/bookings', {
+          const response = await fetch('https://zem-com.onrender.com/api/bookings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
