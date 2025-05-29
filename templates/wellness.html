@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -11,36 +10,17 @@
 
         <!-- CSS FILES -->                
         <link rel="preconnect" href="https://fonts.googleapis.com">
-
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <link href="css/bootstrap-icons.css" rel="stylesheet">
-
-        <link href="css/style.css" rel="stylesheet">
-
-        <!-- Flatpickr CSS for modern date picker -->
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        <!-- Flatpickr CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <style>
-          /* Optional: Custom style to match your form */
-          .flatpickr-calendar {
-            font-family: 'DM Sans', Arial, sans-serif;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-          }
-          .flatpickr-day.today, .flatpickr-day.prevMonthDay, .flatpickr-day.nextMonthDay, .flatpickr-day.disabled {
-            background: #eee !important;
-            color: #bbb !important;
-            cursor: not-allowed;
-          }
-          .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
-            background: #81B29A !important;
-            color: #fff !important;
-          }
-        </style>
+
+        <!-- Flatpickr JS -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        
     </head>
     
     <body>
@@ -48,47 +28,45 @@
         <main>
 
             <nav class="navbar navbar-expand-lg">                
-                <div class="container">
-                    <a class="navbar-brand d-flex align-items-center" href="index.html">
-                        <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="Zem-Com">
-                        <span class="navbar-brand-text" >
-                            Zem-Com
-                            <small></small>
-                        </span>
-                    </a>
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" class="navbar-brand-image img-fluid" alt="Zem-Com">
+                    <span class="navbar-brand-text">
+                        Zem-Com
+                        <small></small>
+                    </span>
+                </a>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-    
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-lg-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Domov</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link" href="wellness.html">Wellness</a>
-                            </li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="pobyt.html">Pobyt</a>
-                            </li>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Domov</a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="galeria.html">Galeria</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('wellness') }}">Wellness</a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="kontakt.html">Kontakt</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('pobyt') }}">Pobyt</a>
+                        </li>
 
-                        </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('galeria') }}">Galéria</a>
+                        </li>
 
-                        
-                    </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('kontakt') }}">Kontakt</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
 
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
@@ -129,7 +107,9 @@
                     </div>
                 </div>
 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#ffffff" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
+                </svg>
             </section>
 
 
@@ -159,7 +139,7 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="images/pic8.jpeg" class="member-block-image img-fluid" alt="Vírivka s hydromasážnymi tryskami">
+                <img src="{{ url_for('static', filename='images/pic8.jpeg') }}" class="member-block-image img-fluid" alt="Vírivka s hydromasážnymi tryskami">
                 <div class="hover-text">
                   <p class="text head fw-bold">Vírivka s hydromasážnymi tryskami</p>
                   <span>Naša vírivka vám poskytne dokonalý relax v teplých bublinách a príjemných hydromasážnych tryskách, ktoré uvoľnia celé telo, zmiernia stres a zlepšujú cirkuláciu krvi.</span>
@@ -171,7 +151,7 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="images/pic9.jpeg" class="member-block-image img-fluid" alt="Sauna">
+                <img src="{{ url_for('static', filename='images/pic9.jpeg') }}" class="member-block-image img-fluid" alt="Sauna">
                 <div class="hover-text">
                   <p class="text head fw-bold">Sauny</p>
                   <span>Vyberte si z našich rôznych typov sáun, podľa Vašej potreby. Bylinková/parná sauna je ideálna na uvoľnenie dýchacích ciest, fínska sauna pomáha pri regenerácii svalov a infračervená sauna podporuje detoxikáciu organizmu.</span>
@@ -189,7 +169,7 @@
           <div class="col-md-12 col-12">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="images/pic10.jpeg" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 350px; width: 100%;">
+                <img src="{{ url_for('static', filename='images/pic10.jpeg') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 350px; width: 100%;">
                 <div class="hover-text">
                   <p class="text head fw-bold">Oddychová zóna</p>
                   <span>Naša oddychová zóna je navrhnutá pre maximálny komfort. Je vybavená ležadlami aj pohodlnými sedačkami s nastaviteľným sklonom, pričom jemné osvetlenie a tiché prostredie vytvárajú ideálne podmienky na oddych a uvoľnenie.</span>
@@ -252,7 +232,7 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="images/klasik.png" class="member-block-image img-fluid" alt="Klasik">
+                <img src="{{ url_for('static', filename='images/klasik.png') }}" class="member-block-image img-fluid" alt="Klasik">
                 <div class="hover-text">
                   <p class="text head fw-bold">Klasik</p>
                   <span><em>Ideálny pre každého, kto si chce v pokoji oddýchnuť a načerpať novú energiu.</em><br><br>
@@ -267,7 +247,7 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="images/exklusive.png" class="member-block-image img-fluid" alt="Exkluzív">
+                <img src="{{ url_for('static', filename='images/exklusive.png')}}" class="member-block-image img-fluid" alt="Exkluzív">
                 <div class="hover-text">
                   <p class="text head fw-bold">Exkluzív</p>
                   <span><em>Vhodný pre tých, ktorí si radi doprajú niečo navyše a chcú sa nechať rozmaznávať.</em><br><br>
@@ -286,7 +266,7 @@
             <div class="member-block">
               <div class="member-block-image-wrap">
                  <!-- Desktop obrázok -->
-                <img src="images/romantika.png" class="member-block-image img-fluid d-none d-md-block" alt="Romantika">
+                <img src="{{ url_for('static', filename ='images/romantika.png')}}" class="member-block-image img-fluid d-none d-md-block" alt="Romantika">
                 <!-- Mobilný obrázok -->
                 <img src="images/romantika_mobil.png" class="member-block-image img-fluid d-block d-md-none" alt="Romantika">
                 <div class="hover-text">
@@ -343,20 +323,20 @@
             </div>
             <div class="col-md-6">
               <div class="form-floating mb-3">
-                <input type="date" class="form-control" id="date" name="date" required>
+                <input type="text" class="form-control" id="date" name="date" required placeholder="Vyberte dátum">
                 <label for="date">Dátum</label>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-floating mb-3">
-                <select class="form-select" id="timeslot" name="timeslot" required>
-                  <option value="" disabled selected>Vyberte čas</option>
-                  <option value="14:30-16:30">14:30 – 16:30</option>
-                  <option value="17:00-19:00">17:00 – 19:00</option>
-                  <option value="19:00-21:00">19:30 – 21:30</option>
-                </select>
-                <label for="timeslot">Časový úsek</label>
-              </div>
+            <div class="form-floating mb-3">
+            <div id="time-slots-row-title" class="mb-2 d-none">Vyberte čas</div>
+            <div class="time-slots d-none" id="time-slots-row">
+              <button class="time-slot-btn" data-timeslot="14:30-16:30">14:30 - 16:30</button>
+              <button class="time-slot-btn" data-timeslot="17:00-19:00">17:00 - 19:00</button>
+              <button class="time-slot-btn" data-timeslot="19:30-21:30">19:30 - 21:30</button>
+            </div>
+            <input type="hidden" id="timeslot" name="timeslot">
+            <label for="timeslot"></label>
+          </div>
             </div>
             <div class="col-12">
               <div class="form-floating mb-3">
@@ -438,7 +418,7 @@
                                     </div>
                                 </div>
 
-                                <img src="images/WorldMap.svg" class="img-fluid" alt="">
+                                <img src="{{ url_for('static', filename='images/WorldMap.svg') }}" class="img-fluid" alt="">
                             </div>
                         </div>
 
@@ -453,7 +433,7 @@
 
                     <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
                         <a class="navbar-brand d-flex align-items-center" href="index.html">
-                            <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="">
+                            <img src="{{ url_for('static', filename='images/logo.png') }}" class="navbar-brand-image img-fluid" alt="">
                             <span class="navbar-brand-text">
                                 Zem-Com
                                 <small></small>
@@ -500,49 +480,208 @@
         </footer>
 
 
-        <!-- JAVASCRIPT FILES -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/jquery.sticky.js"></script>
-        <script src="js/animated-headline.js"></script>
-        <script src="js/modernizr.js"></script>
-        <script src="js/custom.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Flatpickr on the booking form date input
-        var dateInput = document.querySelector('#date');
-        if(dateInput) {
-          flatpickr(dateInput, {
-            minDate: new Date().fp_incr(1), // disables today and all past dates
-            dateFormat: 'Y-m-d',
-            disable: [
-              function(date) {
-                // Disable today and all past dates
-                var today = new Date();
-                today.setHours(0,0,0,0);
-                return date <= today;
-              }
-            ],
-            locale: {
-              firstDayOfWeek: 1,
-              weekdays: {
-                shorthand: ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],
-                longhand: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota']
-              },
-              months: {
-                shorthand: ['Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-                longhand: ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December']
-              }
-            }
-          });
-        }
-      });
-    </script>
+<!-- JAVASCRIPT FILES -->
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
+<script src="{{ url_for('static', filename='js/animated-headline.js') }}"></script>
+<script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+
 <script 
     id="setmore_script" type="text/javascript" src="https://assets.setmore.com/integration/static/setmoreIframeLive.js">
 </script>
+
+<script>
+fetch('/booked-dates')
+  .then(res => res.json())
+  .then(data => {
+    const fullyBookedDates = data.disabledDates || [];
+    flatpickr("#date", {
+      dateFormat: "d/m/Y",
+      minDate: new Date().fp_incr(1),
+      locale: { firstDayOfWeek: 1 },
+      onDayCreate: function(dObj, dStr, fp, dayElem) {
+        // dayElem.dateObj je JS Date objekt
+        const d = dayElem.dateObj;
+        // Formátuj na d/m/Y
+        const formatted = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
+        if (fullyBookedDates.includes(formatted)) {
+          dayElem.classList.add('booked-day');
+        }
+      }
+    });
+  });
+</script>
+
+<script>
+document.querySelector('.booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('full-name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const date = document.getElementById('date').value;
+    const package = document.getElementById('package').value;
+    const timeslot = document.getElementById('timeslot').value;
+    const notes = document.getElementById('notes').value;
+
+    fetch('/book', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            date: date,
+            package: package,
+            timeslot: timeslot,
+            notes: notes
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);  // alebo nahradiť lepším UI popupom
+        document.querySelector('.booking-form').reset();
+        // Skry time slot buttons po úspešnej rezervácii
+        document.getElementById('time-slots-row').classList.add('d-none');
+        // Ak máš aj nadpis nad slotmi, skry aj ten:
+        const slotTitle = document.getElementById('time-slots-row-title');
+        if (slotTitle) slotTitle.classList.add('d-none');
+    })
+    .catch(error => {
+        console.error('Chyba:', error);
+        alert('Chyba pri odosielaní rezervácie.');
+    });
+});
+</script>
+
+<script>
+  flatpickr("#date", {
+    dateFormat: "d/m/Y",       // napr. 28.05.2025
+    minDate: new Date().fp_incr(1),          // zákaz výberu dátumov od dnes späť
+    locale: {
+      firstDayOfWeek: 1        // týždeň začína pondelkom
+    }
+  });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const dateInput = document.getElementById('date');
+  const timeSlotsRow = document.getElementById('time-slots-row');
+  const timeSlotsTitle = document.getElementById('time-slots-row-title');
+  const timeSlotButtons = document.querySelectorAll('.time-slot-btn');
+  const hiddenTimeslotInput = document.getElementById('timeslot');
+
+  function formatDateToISO(dateStr) {
+    if (dateStr.includes('/')) {
+      const parts = dateStr.split('/');
+      return `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+    }
+    return dateStr;
+  }
+
+  function clearSelection() {
+    hiddenTimeslotInput.value = '';
+    timeSlotButtons.forEach(btn => btn.classList.remove('selected'));
+  }
+
+  timeSlotButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (btn.classList.contains('disabled')) return;
+      clearSelection();
+      btn.classList.add('selected');
+      hiddenTimeslotInput.value = btn.getAttribute('data-timeslot');
+    });
+  });
+
+  dateInput.addEventListener('change', () => {
+    clearSelection();
+    const rawDate = dateInput.value;
+    if (!rawDate) {
+      timeSlotsRow.classList.add('d-none');
+      if (timeSlotsTitle) timeSlotsTitle.classList.add('d-none');
+      return;
+    }
+    const formattedDate = formatDateToISO(rawDate);
+
+    fetch(`/booked-timeslots?date=${encodeURIComponent(formattedDate)}`)
+      .then(res => res.json())
+      .then(bookedSlots => {
+        const allSlots = ['14:30-16:30', '17:00-19:00', '19:30-21:30'];
+        const availableSlots = allSlots.filter(slot => !bookedSlots.includes(slot));
+
+        if (availableSlots.length === 0) {
+          timeSlotsRow.classList.add('d-none');
+          if (timeSlotsTitle) timeSlotsTitle.classList.add('d-none');
+        } else {
+          timeSlotsRow.classList.remove('d-none');
+          if (timeSlotsTitle) timeSlotsTitle.classList.remove('d-none');
+          timeSlotButtons.forEach(btn => {
+            const slot = btn.getAttribute('data-timeslot');
+            if (bookedSlots.includes(slot)) {
+              btn.classList.add('disabled');
+              btn.style.display = 'none';
+            } else {
+              btn.classList.remove('disabled');
+              btn.style.display = 'inline-block';
+            }
+          });
+        }
+      })
+      .catch(err => {
+        console.error('Chyba pri načítaní obsadených časov:', err);
+        timeSlotsRow.classList.remove('d-none');
+        if (timeSlotsTitle) timeSlotsTitle.classList.remove('d-none');
+        timeSlotButtons.forEach(btn => {
+          btn.classList.remove('disabled');
+          btn.style.display = 'inline-block';
+        });
+      });
+  });
+});
+</script>
+
+
 <style>
+
+
+  .flatpickr-day.booked-day {
+  background: #ff4d4d87 !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  opacity: 1 !important;
+}
+
+.time-slot-btn {
+  margin: 0 5px 5px 0;
+  padding: 0.7rem 1.1rem;
+  border: 1.5px solid #ced4da;
+  background: #fff;
+  color: #3D405B;
+  cursor: pointer;
+  border-radius: 999px; /* úplne oválne */
+  font-weight: 500;
+  font-size: 1rem;
+  min-height: 58px; /* výška ako .form-control vo form-floating */
+  box-shadow: 0 1px 2px rgba(60,64,91,0.04);
+  transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.time-slot-btn.selected,
+.time-slot-btn:active {
+  background: #81B29A;              /* zelená podľa dizajnu */
+  color: #fff;
+  border-color: #81B29A;
+}
+
   /* Fixná veľkosť kariet a medzery medzi nimi */
   .testimonial {
     min-height: 320px;
