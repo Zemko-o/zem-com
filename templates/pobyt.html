@@ -290,12 +290,12 @@
           <div class="d-flex gap-2 align-items-end">
             <div class="d-flex flex-column" style="min-width: 120px;">
               <label for="bookingStart" class="form-label mb-1" style="font-size:0.95em;">Od</label>
-              <input type="date" class="form-control" id="bookingStart" required placeholder="Deň/Mesiac/Rok">
+              <input type="text" class="form-control" id="bookingStart" required placeholder="Deň/Mesiac/Rok">
             </div>
             <span class="align-self-end" style="font-size:1.2em; margin-bottom: 0.5rem;">-</span>
             <div class="d-flex flex-column" style="min-width: 120px;">
               <label for="bookingEnd" class="form-label mb-1" style="font-size:0.95em;">Do</label>
-              <input type="date" class="form-control" id="bookingEnd" required placeholder="Deň/Mesiac/Rok">
+              <input type="text" class="form-control" id="bookingEnd" required placeholder="Deň/Mesiac/Rok">
             </div>
           </div>
           <div class="form-text">Vyberte dátum príchodu a odchodu (min. 3 dni rozdiel)</div>
@@ -372,121 +372,207 @@
 <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
         <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Highlight 'Pobyt' as active on the pobyt page
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link, idx) {
-      if(idx === 2) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
+let globalBookedDays = [];
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/booked-stay-dates')
+    .then(res => res.json())
+    .then(data => {
+      globalBookedDays = (data.booked || []).map(d => {
+        const [day, month, year] = d.split('/');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      });
+      const startInput = document.getElementById('bookingStart');
+      const endInput = document.getElementById('bookingEnd');
+
+      if (startInput && endInput) {
+        flatpickr([startInput, endInput], {
+          mode: "range",
+          dateFormat: "d/m/Y",
+          minDate: new Date().fp_incr(1),
+          locale: { firstDayOfWeek: 1 },
+          disableMobile: true,
+          disable: globalBookedDays,
+          onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const d = dayElem.dateObj;
+            const formatted = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            if (globalBookedDays.includes(formatted)) {
+              dayElem.classList.add('booked-day');
+            }
+          },
+          onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length === 2) {
+              const [start, end] = selectedDates;
+              startInput.value = instance.formatDate(start, "d/m/Y");
+              endInput.value = instance.formatDate(end, "d/m/Y");
+            }
+          }
+        });
       }
     });
 
-    // Flatpickr for booking form
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var startInput = document.getElementById('bookingStart');
-    var endInput = document.getElementById('bookingEnd');
-    var endPicker;
-    if (startInput) {
-      flatpickr(startInput, {
-        dateFormat: 'd/m/Y',
-        minDate: tomorrow,
-        disable: [function(date) { return date < tomorrow; }],
-        locale: {
-          firstDayOfWeek: 1
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('bookingFullName').value;
+    const email = document.getElementById('bookingEmail').value;
+    const phone = document.getElementById('bookingPhone').value;
+    const start = document.getElementById('bookingStart').value;
+    const end = document.getElementById('bookingEnd').value;
+    const notes = document.getElementById('bookingNotes').value;
+
+    // Kontrola obsadených dní
+    if (start && end) {
+      let s = new Date(start.split('/').reverse().join('-'));
+      let eDate = new Date(end.split('/').reverse().join('-'));
+      let conflict = false;
+      while (s < eDate) {
+        const iso = s.toISOString().slice(0,10);
+        if (globalBookedDays.includes(iso)) {
+          conflict = true;
+          break;
+        }
+        s.setDate(s.getDate() + 1);
+      }
+      if (conflict) {
+        showBookingAlert('Vami zvolený termín obsahuje obsadené dni. Prosím, vyberte iný termín.');
+        return false;
+      }
+    }
+
+    // Odoslanie rezervácie
+    fetch('/book-stay', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        onChange: function(selectedDates, dateStr, instance) {
-          if (endInput && selectedDates[0]) {
-            // Set minDate to 3 days after start date
-            var minEnd = new Date(selectedDates[0]);
-            minEnd.setDate(minEnd.getDate() + 3);
-            endPicker.set('minDate', minEnd);
-            // Optionally, clear end date if it's before new min
-            if (endInput.value) {
-              var endVal = endPicker.selectedDates[0];
-              if (!endVal || endVal < minEnd) {
-                endInput.value = '';
-              }
-            }
-          }
-        }
-      });
-    }
-    if (endInput) {
-      endPicker = flatpickr(endInput, {
-        dateFormat: 'd/m/Y',
-        minDate: tomorrow,
-        disable: [function(date) {
-          // Only allow end date at least 3 days after start date
-          if (startInput && startInput.value) {
-            var startDate = endPicker.parseDate(startInput.value, 'd/m/Y');
-            var minEnd = new Date(startDate);
-            minEnd.setDate(minEnd.getDate() + 3);
-            return date < minEnd;
-          } else {
-            return date < tomorrow;
-          }
-        }],
-        locale: {
-          firstDayOfWeek: 1
-        }
-      });
-    }
-    // --- Double booking prevention ---
-    // Fetch existing bookings and disable booked dates in Flatpickr
-    fetch('https://zem-com.onrender.com/api/bookings')
-      .then(res => res.json())
-      .then(bookings => {
-        // Collect all booked date ranges (inclusive)
-        let disabledDates = [];
-        bookings.forEach(b => {
-          let start = new Date(b.startDate);
-          let end = new Date(b.endDate);
-          // For each day in the range, except the last day (checkout is available)
-          let d = new Date(start);
-          while (d < end) {
-            disabledDates.push(new Date(d));
-            d.setDate(d.getDate() + 1);
-          }
-        });
-        // Flatpickr expects dates as strings in 'YYYY-MM-DD'
-        disabledDates = disabledDates.map(d => d.toISOString().split('T')[0]);
-        // Re-initialize Flatpickr with disabled dates
-        if (startInput) {
-          flatpickr(startInput, {
-            dateFormat: 'd/m/Y',
-            minDate: tomorrow,
-            disable: disabledDates,
-            locale: { firstDayOfWeek: 1 },
-            onChange: function(selectedDates, dateStr, instance) {
-              if (endInput && selectedDates[0]) {
-                var minEnd = new Date(selectedDates[0]);
-                minEnd.setDate(minEnd.getDate() + 3);
-                endPicker.set('minDate', minEnd);
-                if (endInput.value) {
-                  var endVal = endPicker.selectedDates[0];
-                  if (!endVal || endVal < minEnd) {
-                    endInput.value = '';
-                  }
-                }
-              }
-            }
-          });
-        }
-        if (endInput) {
-          endPicker = flatpickr(endInput, {
-            dateFormat: 'd/m/Y',
-            minDate: tomorrow,
-            disable: disabledDates,
-            locale: { firstDayOfWeek: 1 }
-          });
-        }
-      });
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            start: start,
+            end: end,
+            notes: notes
+        })
+    })
+    .then(response => response.json()) // <-- tu zmeň na .json()
+    .then(data => {
+        showBookingAlert(data.message); // použiješ len text správy
+        document.getElementById('bookingForm').reset();
+    })
+    .catch(error => {
+        console.error('Chyba:', error);
+        showBookingAlert('Chyba pri odosielaní rezervácie.');
+    });
   });
+});
+
+// Funkcia na zobrazenie modalu
+function showBookingAlert(message) {
+  document.getElementById('bookingAlertModalBody').innerText = message;
+  var modal = new bootstrap.Modal(document.getElementById('bookingAlertModal'));
+  modal.show();
+}
 </script>
+
+<script>
+let globalBookedDays = [];
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/booked-stay-dates')
+    .then(res => res.json())
+    .then(data => {
+      globalBookedDays = (data.booked || []).map(d => {
+        const [day, month, year] = d.split('/');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      });
+      const startInput = document.getElementById('bookingStart');
+      const endInput = document.getElementById('bookingEnd');
+      const flatpickrOptions = {
+        dateFormat: 'd/m/Y',
+        minDate: new Date().fp_incr(1),
+        locale: { firstDayOfWeek: 1 },
+        disableMobile: true,
+        disable: globalBookedDays,
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+          const d = dayElem.dateObj;
+          const formatted = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+          if (globalBookedDays.includes(formatted)) {
+            dayElem.classList.add('booked-day');
+          }
+        }
+      };
+      if (startInput) flatpickr(startInput, flatpickrOptions);
+      if (endInput) flatpickr(endInput, flatpickrOptions);
+    });
+
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    const start = document.getElementById('bookingStart').value;
+    const end = document.getElementById('bookingEnd').value;
+    if (start && end) {
+      let s = new Date(start.split('/').reverse().join('-'));
+      let e = new Date(end.split('/').reverse().join('-'));
+      let conflict = false;
+      while (s < e) {
+        const iso = s.toISOString().slice(0,10);
+        if (globalBookedDays.includes(iso)) {
+          conflict = true;
+          break;
+        }
+        s.setDate(s.getDate() + 1);
+      }
+      if (conflict) {
+        e.preventDefault();
+        showBookingAlert('Vami zvolený termín obsahuje obsadené dni. Prosím, vyberte iný termín.');
+        return false;
+      }
+    }
+  });
+});
+</script>
+
+<!-- Modal na správy -->
+<div class="modal fade" id="bookingAlertModal" tabindex="-1" aria-labelledby="bookingAlertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 1rem;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bookingAlertModalLabel">Upozornenie</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Zavrieť"></button>
+      </div>
+      <div class="modal-body" id="bookingAlertModalBody">
+        <!-- Tu sa zobrazí správa -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showBookingAlert(message) {
+  document.getElementById('bookingAlertModalBody').innerText = message;
+  var modal = new bootstrap.Modal(document.getElementById('bookingAlertModal'));
+  modal.show();
+}
+</script>
+
 <style>
+  
+  .flatpickr-calendar {
+  font-size: 1rem;
+  z-index: 9999 !important;
+}
+
+  .flatpickr-day.booked-day {
+  background: #ff4d4d87 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  border-radius: 50% !important;
+  opacity: 1 !important;
+}
+
   /* Fixná veľkosť kariet a medzery medzi nimi */
   .testimonial {
     min-height: 320px;
@@ -797,20 +883,20 @@
 }
 
 .hover-text span {
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.9rem;ceny pri hovernutí */
+  line-height: 1.5;image-wrap:hover .price {
 }
-
+;
 /* Cena v kruhu */
 .member-block-image-wrap .price {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  width: 40px;
+  top: 10px;px rgba(0, 0, 0, 0.1); /* Jemný tieň */
+  right: 15px; 10px; /* Voliteľné: zaoblené rohy */
+  width: 40px;.3s ease; /* Plynulý prechod pri hover */
   height: 40px;
   background: #C10001;
   color: white;
-  font-weight: 700;
+  font-weight: 700;ess(95%);
   font-size: 1rem;
   border-radius: 50%;
   display: flex;
@@ -839,76 +925,7 @@
   filter: grayscale(10%) brightness(95%);
   transition: filter 0.4s ease;
 </style>
-<script>
-// Set min date for booking form to tomorrow (no current or previous dates allowed)
-document.addEventListener('DOMContentLoaded', function() {
-  var startInput = document.getElementById('bookingStart');
-  var endInput = document.getElementById('bookingEnd');
-  function getTomorrowISO() {
-    var d = new Date();
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().split('T')[0];
-  }
-  var minDate = getTomorrowISO();
-  if (startInput) startInput.setAttribute('min', minDate);
-  if (endInput) endInput.setAttribute('min', minDate);
-});
-</script>
-<script>
-// Booking form integration with backend
-  document.addEventListener('DOMContentLoaded', function() {
-    var bookingForm = document.getElementById('bookingForm');
-    var bookingMessage = document.getElementById('bookingMessage');
-    if (bookingForm) {
-      bookingForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        bookingMessage.textContent = '';
-        // Collect form data
-        var fullName = document.getElementById('bookingFullName').value.trim();
-        var email = document.getElementById('bookingEmail').value.trim();
-        var phone = document.getElementById('bookingPhone').value.trim();
-        var start = document.getElementById('bookingStart').value;
-        var end = document.getElementById('bookingEnd').value;
-        var notes = document.getElementById('bookingNotes').value.trim();
-        // Validate required fields
-        if (!fullName || !email || !phone || !start || !end) {
-          bookingMessage.textContent = 'Vyplňte všetky povinné polia.';
-          bookingMessage.style.color = '#d9534f';
-          return;
-        }
-        // Prepare data for backend (convert dates to ISO)
-        var startDate = start.includes('/') ? start.split('/').reverse().join('-') : start;
-        var endDate = end.includes('/') ? end.split('/').reverse().join('-') : end;
-        var data = {
-          fullName,
-          email,
-          phone,
-          startDate: startDate,
-          endDate: endDate,
-          notes
-        };
-        try {
-          const response = await fetch('https://zem-com.onrender.com/api/bookings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-          const result = await response.json();
-          if (response.ok) {
-            bookingMessage.textContent = 'Rezervácia bola úspešne odoslaná!';
-            bookingMessage.style.color = '#28a745';
-            bookingForm.reset();
-          } else {
-            bookingMessage.textContent = result.message || 'Chyba pri odosielaní rezervácie.';
-            bookingMessage.style.color = '#d9534f';
-          }
-        } catch (err) {
-          bookingMessage.textContent = 'Chyba pripojenia k serveru. Skúste neskôr.';
-          bookingMessage.style.color = '#d9534f';
-        }
-      });
-    }
-  });
-</script>
+
+
     </body>
 </html>

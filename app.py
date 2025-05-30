@@ -117,7 +117,7 @@ def book():
 
     return "Rezervácia bola úspešne uložená!"
 
-# -------- EMAIL --------
+# -------- EMAIL WELLNESS --------
 
 def send_email(name, email, date_str, timeslot, package, notes):
     try:
@@ -155,6 +155,42 @@ def send_email(name, email, date_str, timeslot, package, notes):
     except Exception as e:
         print(f"❌ Chyba pri odosielaní emailu: {e}")
 
+def send_stay_email(name, email, phone, start_date, end_date, notes):
+    try:
+        smtp_server = 'smtp.gmail.com'
+        smtp_port = 587
+        smtp_user = 'filipzemencik@gmail.com'
+        smtp_password = 'jvuk amlc dcrk uzrz'  # alebo tvoje heslo do Gmail app
+
+        to_admin = 'zemencikova.gabriela@gmail.com'
+        subject_admin = 'Nová rezervácia pobytu'
+        body_admin = f"""Nová rezervácia pobytu:\n\nMeno: {name}\nEmail: {email}\nTelefón: {phone}\nOd: {start_date}\nDo: {end_date}\nPoznámky: {notes or '---'}"""
+
+        subject_user = 'Potvrdenie rezervácie pobytu'
+        body_user = f"""Ďakujeme za vašu rezerváciu, {name}!\n\nTešíme sa na vás od {start_date} do {end_date}.\n\nTím Zem-Com"""
+
+        msg_admin = MIMEMultipart()
+        msg_admin['From'] = smtp_user
+        msg_admin['To'] = to_admin
+        msg_admin['Subject'] = subject_admin
+        msg_admin.attach(MIMEText(body_admin, 'plain'))
+
+        msg_user = MIMEMultipart()
+        msg_user['From'] = smtp_user
+        msg_user['To'] = email
+        msg_user['Subject'] = subject_user
+        msg_user.attach(MIMEText(body_user, 'plain'))
+
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_user, smtp_password)
+        server.sendmail(smtp_user, to_admin, msg_admin.as_string())
+        server.sendmail(smtp_user, email, msg_user.as_string())
+        server.quit()
+
+    except Exception as e:
+        print(f"❌ Chyba pri odosielaní emailu (pobyt): {e}")
+
 # -------- KALENDÁR --------
 
 def add_to_google_calendar(name, email, date_str, timeslot, package, notes):
@@ -183,6 +219,86 @@ def add_to_google_calendar(name, email, date_str, timeslot, package, notes):
         print(f"✅ Google kalendár: {created_event.get('htmlLink')}")
     except Exception as e:
         print(f"❌ Chyba pri vkladaní do kalendára: {e}")
+
+# -------- ACCOMMODATION --------
+
+@app.route('/booked-stay-dates')
+def booked_stay_dates():
+    booked = set()
+    try:
+        with open('stay_bookings.csv', mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                start = datetime.strptime(row['Start Date'], "%d/%m/%Y")
+                end = datetime.strptime(row['End Date'], "%d/%m/%Y")
+                d = start
+                while d < end:  # checkout day is free
+                    booked.add(d.strftime("%d/%m/%Y"))
+                    d += timedelta(days=1)
+    except Exception as e:
+        print("Chyba pri čítaní stay_bookings.csv:", e)
+    return jsonify({"booked": sorted(booked)})
+
+@app.route('/book-stay', methods=['POST'])
+def book_stay():
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    phone = data.get('phone')
+    start_date = data.get('start')
+    end_date = data.get('end')
+    notes = data.get('notes', '')
+
+    print("Received data:", data)
+
+    if not name or not email or not phone or not start_date or not end_date:
+        return "Všetky polia sú povinné", 400
+
+    try:
+        start_dt = datetime.strptime(start_date, "%d/%m/%Y")
+        end_dt = datetime.strptime(end_date, "%d/%m/%Y")
+        if (end_dt - start_dt).days < 3:
+            return "Pobyt musí mať minimálne 3 noci", 400
+    except Exception:
+        return "Neplatný formát dátumu", 400
+
+    # --- kontrola kolízie s existujúcimi rezerváciami ---
+    booked = set()
+    try:
+        with open('stay_bookings.csv', mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                existing_start = datetime.strptime(row['Start Date'], "%d/%m/%Y")
+                existing_end = datetime.strptime(row['End Date'], "%d/%m/%Y")
+                d = existing_start
+                while d < existing_end:  # posledný deň je voľný
+                    booked.add(d.strftime("%d/%m/%Y"))
+                    d += timedelta(days=1)
+    except FileNotFoundError:
+        # Ak súbor ešte neexistuje, to je OK
+        pass
+    except Exception as e:
+        print("Chyba pri kontrole kolízie:", e)
+
+    # Skontroluj, či niektorý z požadovaných dní už nie je obsadený
+    d = start_dt
+    while d < end_dt:
+        if d.strftime("%d/%m/%Y") in booked:
+            return "Zvolený termín sa prekrýva s inou rezerváciou.", 400
+        d += timedelta(days=1)
+
+    # --- uloženie do CSV ---
+    with open('stay_bookings.csv', mode='a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        if file.tell() == 0:
+            writer.writerow(['Name', 'Email', 'Phone', 'Start Date', 'End Date', 'Notes'])
+        writer.writerow([name, email, phone, start_date, end_date, notes])
+
+    # Po úspešnom zápise pošli email
+    send_stay_email(name, email, phone, start_date, end_date, notes)
+
+    return jsonify({"message": "Rezervácia bola úspešne uložená!"})
+
 
 # -------- SPUSTENIE --------
 
