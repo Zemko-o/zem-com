@@ -220,6 +220,33 @@ def add_to_google_calendar(name, email, date_str, timeslot, package, notes):
     except Exception as e:
         print(f"❌ Chyba pri vkladaní do kalendára: {e}")
 
+# -------- KALENDÁR PRE POBYT --------
+
+def add_stay_to_google_calendar(name, email, phone, start_date, end_date, notes):
+    try:
+        SERVICE_ACCOUNT_FILE = 'service_account.json'
+        SCOPES = ['https://www.googleapis.com/auth/calendar']
+        CALENDAR_ID = 'zemencikova.gabriela@gmail.com'
+
+        credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+        service = build('calendar', 'v3', credentials=credentials)
+
+        start_dt = datetime.strptime(start_date, "%d/%m/%Y")
+        end_dt = datetime.strptime(end_date, "%d/%m/%Y")
+
+        event = {
+            'summary': f'Rezervácia pobytu - {name}',
+            'description': f'Meno: {name}\nEmail: {email}\nTelefón: {phone}\nPoznámky: {notes or "Žiadne"}',
+            'start': {'date': start_dt.strftime("%Y-%m-%d")},
+            'end': {'date': end_dt.strftime("%Y-%m-%d")},
+        }
+
+        created_event = service.events().insert(calendarId=CALENDAR_ID, body=event).execute()
+        print(f"✅ Google kalendár (pobyt): {created_event.get('htmlLink')}")
+    except Exception as e:
+        print(f"❌ Chyba pri vkladaní pobytu do kalendára: {e}")
+
 # -------- ACCOMMODATION --------
 
 @app.route('/booked-stay-dates')
@@ -296,6 +323,9 @@ def book_stay():
 
     # Po úspešnom zápise pošli email
     send_stay_email(name, email, phone, start_date, end_date, notes)
+
+    # Pridaj do Google kalendára
+    add_stay_to_google_calendar(name, email, phone, start_date, end_date, notes)
 
     return jsonify({"message": "Rezervácia bola úspešne uložená!"})
 
