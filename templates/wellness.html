@@ -321,9 +321,12 @@
           </div>
             </div>
             <div class="col-12">
-              <div class="form-floating mb-3">
-                <textarea class="form-control" id="notes" name="notes" placeholder="Poznámka" style="height: 100px;"></textarea>
-                <label for="notes">Poznámka (nepovinné)</label>
+              <div class="form-floating mb-3 position-relative">
+                <textarea class="form-control" id="notes" name="notes" placeholder="Vyberte si z našich rôznych typov sáun, podľa Vašej potreby. Bylinková/parná sauna je ideálna na uvoľnenie dýchacích ciest, fínska sauna pomáha pri regenerácii svalov a infračervená sauna podporuje detoxikáciu organizmu." style="height: 100px; color: #6c757d;"></textarea>
+                <label for="notes">Poznámka (Vyberte si sauny)</label>
+                <small class="form-text text-muted" style="position:absolute; right:0; top:100%; font-size:0.95em; margin-top:-0.25rem;">
+                  <a href="#" id="sauny-helper-link" style="color:inherit; text-decoration:underline; cursor:pointer;">Sauny info</a>
+                </small>
               </div>
             </div>
             <div class="col-12 text-center">
@@ -405,7 +408,7 @@ fetch('/booked-dates')
       dateFormat: "d/m/Y",
       minDate: new Date().fp_incr(1),
       locale: { firstDayOfWeek: 1 },
-      disableMobile: false, 
+      disableMobile: true, 
       onDayCreate: function(dObj, dStr, fp, dayElem) {
         // dayElem.dateObj je JS Date objekt
         const d = dayElem.dateObj;
@@ -469,7 +472,8 @@ document.querySelector('.booking-form').addEventListener('submit', function(e) {
     minDate: new Date().fp_incr(1),          // zákaz výberu dátumov od dnes späť
     locale: {
       firstDayOfWeek: 1        // týždeň začína pondelkom
-    }
+    },
+    disableMobile: true
   });
 </script>
 
@@ -518,25 +522,25 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(res => res.json())
       .then(bookedSlots => {
         const allSlots = ['14:30-16:30', '17:00-19:00', '19:30-21:30'];
-        const availableSlots = allSlots.filter(slot => !bookedSlots.includes(slot));
-
-        if (availableSlots.length === 0) {
-          timeSlotsRow.classList.add('d-none');
-          if (timeSlotsTitle) timeSlotsTitle.classList.add('d-none');
-        } else {
-          timeSlotsRow.classList.remove('d-none');
-          if (timeSlotsTitle) timeSlotsTitle.classList.remove('d-none');
-          timeSlotButtons.forEach(btn => {
-            const slot = btn.getAttribute('data-timeslot');
-            if (bookedSlots.includes(slot)) {
-              btn.classList.add('disabled');
-              btn.style.display = 'none';
-            } else {
-              btn.classList.remove('disabled');
-              btn.style.display = 'inline-block';
-            }
-          });
-        }
+        // Always show all slots
+        timeSlotsRow.classList.remove('d-none');
+        if (timeSlotsTitle) timeSlotsTitle.classList.remove('d-none');
+        timeSlotButtons.forEach(btn => {
+          const slot = btn.getAttribute('data-timeslot');
+          if (bookedSlots.includes(slot)) {
+            btn.classList.add('disabled');
+            btn.style.display = 'inline-block';
+            btn.style.background = '#e9ecef'; // grey background
+            btn.style.color = '#adb5bd'; // grey text
+            btn.style.cursor = 'not-allowed';
+          } else {
+            btn.classList.remove('disabled');
+            btn.style.display = 'inline-block';
+            btn.style.background = '';
+            btn.style.color = '';
+            btn.style.cursor = '';
+          }
+        });
       })
       .catch(err => {
         console.error('Chyba pri načítaní obsadených časov:', err);
@@ -545,6 +549,9 @@ document.addEventListener('DOMContentLoaded', () => {
         timeSlotButtons.forEach(btn => {
           btn.classList.remove('disabled');
           btn.style.display = 'inline-block';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.cursor = '';
         });
       });
   });
@@ -948,7 +955,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 }
 
-
+@media (max-width: 576px) {
+  .booking-form {
+    padding-bottom: 5.5rem !important;
+  }
+}
     </style>
     <script>
 // filepath: /Users/gabrielazemencikova/Desktop/repo/zem-com/templates/wellness.html
@@ -960,7 +971,66 @@ document.addEventListener('DOMContentLoaded', function() {
       link.classList.remove('active');
     }
   });
+
+  // Handle textarea placeholder
+  const notesTextarea = document.getElementById('notes');
+  const originalPlaceholder = notesTextarea.placeholder;
+  
+  notesTextarea.addEventListener('focus', function() {
+    if (this.value === '') {
+      this.placeholder = '';
+      this.style.color = '#000'; // Change text color to black when user starts typing
+    }
+  });
+
+  notesTextarea.addEventListener('blur', function() {
+    if (this.value === '') {
+      this.placeholder = originalPlaceholder;
+      this.style.color = '#6c757d'; // Return to grey color if empty
+    }
+  });
+
+  notesTextarea.addEventListener('input', function() {
+    if (this.value !== '') {
+      this.style.color = '#000'; // Keep text black while user is typing
+    }
+  });
+
+  // Smooth scroll for sauny link
+  const saunyLink = document.getElementById('sauny-link');
+  if (saunyLink) {
+    saunyLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById('sauny-info');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+
+  // Show modal for sauny info
+  const saunyHelperLink = document.getElementById('sauny-helper-link');
+  if (saunyHelperLink) {
+    saunyHelperLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = new bootstrap.Modal(document.getElementById('saunyInfoModal'));
+      modal.show();
+    });
+  }
 });
 </script>
-    </body>
-</html>
+
+<!-- Sauna Info Modal -->
+<div class="modal fade" id="saunyInfoModal" tabindex="-1" aria-labelledby="saunyInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="saunyInfoModalLabel">Sauny info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Vyberte si z našich rôznych typov sáun, podľa Vašej potreby. Bylinková/parná sauna je ideálna na uvoľnenie dýchacích ciest, fínska sauna pomáha pri regenerácii svalov a infračervená sauna podporuje detoxikáciu organizmu.
+      </div>
+    </div>
+  </div>
+</div>

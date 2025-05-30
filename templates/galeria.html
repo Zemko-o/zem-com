@@ -679,20 +679,32 @@
     font-size: 0.85rem;
   }
 }
+
+/* Show only 5 gallery images per slider on mobile */
+@media (max-width: 700px) {
+  .options .option:nth-child(n+6) {
+    display: none !important;
+  }
+}
 </style>
 <script>
 // Interactive gallery slider logic with auto-advance
 $(document).ready(function() {
-  var $options = $('.options .option');
+  function getVisibleOptions() {
+    return $('.options .option:visible');
+  }
+  var $options = getVisibleOptions();
   var current = 0;
   var interval = null;
   var autoAdvance = function() {
+    $options = getVisibleOptions();
     $options.removeClass('active');
     current = (current + 1) % $options.length;
     $options.eq(current).addClass('active');
   };
   // Manual click
-  $options.click(function() {
+  $('.options').on('click', '.option:visible', function() {
+    $options = getVisibleOptions();
     $options.removeClass('active');
     $(this).addClass('active');
     current = $options.index(this);
@@ -704,7 +716,7 @@ $(document).ready(function() {
       if (!$('.options').is(':hover')) {
         autoAdvance();
       }
-    }, 2000); // changed from 1500 to 2000 ms
+    }, 2000);
   }
   // Pause on hover
   $('.options').hover(
@@ -712,8 +724,8 @@ $(document).ready(function() {
     function() { startAutoAdvance(); }
   );
   // Also pause on focus (for accessibility)
-  $options.on('focusin', function() { if(interval) clearInterval(interval); });
-  $options.on('focusout', function() { startAutoAdvance(); });
+  $('.options').on('focusin', '.option:visible', function() { if(interval) clearInterval(interval); });
+  $('.options').on('focusout', '.option:visible', function() { startAutoAdvance(); });
   // Start auto-advance
   startAutoAdvance();
 });
@@ -722,25 +734,28 @@ $(document).ready(function() {
 // Synchronized gallery sliders logic
 $(document).ready(function() {
   function setupGallerySlider(selector) {
-    var $options = $(selector + ' .option');
+    function getVisibleOptions() {
+      return $(selector + ' .option:visible');
+    }
+    var $options = getVisibleOptions();
     var current = 0;
     var interval = null;
     var autoAdvance = function() {
+      $options = getVisibleOptions();
       $options.removeClass('active top');
       current = (current + 1) % $options.length;
       $options.eq(current).addClass('active');
     };
     // Hover: enlarge hovered photo
-    $options.hover(
-      function() {
-        $options.removeClass('active');
-        $(this).addClass('active');
-        current = $options.index(this);
-      },
-      function() {}
-    );
+    $(selector).on('mouseenter', '.option:visible', function() {
+      $options = getVisibleOptions();
+      $options.removeClass('active');
+      $(this).addClass('active');
+      current = $options.index(this);
+    });
     // Click: bring to top and enlarge more
-    $options.click(function(e) {
+    $(selector).on('click', '.option:visible', function(e) {
+      $options = getVisibleOptions();
       $options.removeClass('top');
       $(this).addClass('top');
       $options.removeClass('active');
@@ -768,8 +783,8 @@ $(document).ready(function() {
       function() { if(interval) clearInterval(interval); },
       function() { startAutoAdvance(); }
     );
-    $options.on('focusin', function() { if(interval) clearInterval(interval); });
-    $options.on('focusout', function() { startAutoAdvance(); });
+    $(selector).on('focusin', '.option:visible', function() { if(interval) clearInterval(interval); });
+    $(selector).on('focusout', '.option:visible', function() { startAutoAdvance(); });
     startAutoAdvance();
   }
   setupGallerySlider('.gallery-slider-1');
