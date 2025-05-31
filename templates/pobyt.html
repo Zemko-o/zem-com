@@ -123,10 +123,10 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="{{ url_for('static', filename='images/pic8.jpeg') }}" class="member-block-image img-fluid" alt="Vírivka s hydromasážnymi tryskami">
+                <img src="{{ url_for('static', filename='images/chata8.png') }}" class="member-block-image img-fluid" alt="Vírivka s hydromasážnymi tryskami">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Text</p>
-                  <span>Text</span>
+                  <p class="text head fw-bold">Spálna</p>
+                  <span>Pohodlná manželská posteľ pre 2</span>
                 </div>
               </div>
             </div>
@@ -135,10 +135,10 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="{{ url_for('static', filename='images/pic9.jpeg') }}" class="member-block-image img-fluid" alt="Sauna">
+                <img src="{{ url_for('static', filename='images/chata7.png') }}" class="member-block-image img-fluid" alt="Sauna">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Text</p>
-                  <span>Text.</span>
+                  <p class="text head fw-bold">Izba</p>
+                  <span>Na posteli sa pohodlne jeden vyspí no môže byť použitá aj ako pracovňa</span>
                 </div>
               </div>
             </div>
@@ -153,10 +153,10 @@
           <div class="col-md-12 col-12">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="{{ url_for('static', filename='images/pic10.jpeg') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 350px; width: 100%;">
+                <img src="{{ url_for('static', filename='images/chata9.png') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 350px; width: 100%;">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Text</p>
-                  <span>Text</span>
+                  <p class="text head fw-bold">Obývačka</p>
+                  <span>Vybavená okrem všetkého aj rozkladacím gaučom kde sa vyspia daľší dvaja ľudia</span>
                 </div>
               </div>
             </div>
@@ -219,11 +219,11 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="{{ url_for('static', filename='images/klasik.png') }}" class="member-block-image img-fluid" alt="Klasik">
+                <img src="{{ url_for('static', filename='images/chata4.jpeg') }}" class="member-block-image img-fluid" alt="Klasik">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Klasik</p>
-                  <span><em>Text</em><br><br>
-                    Text</span>
+                  <p class="text head fw-bold">Teraska</p>
+                  <span><em>Na terase si môžete vychutnať kávičku s krásnym výhľadom</em><br><br>
+                  </span>
                 </div>
               </div>
             </div>
@@ -233,11 +233,11 @@
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
               <div class="member-block-image-wrap">
-                <img src="{{ url_for('static', filename='images/exklusive.png')}}" class="member-block-image img-fluid" alt="Exkluzív">
+                <img src="{{ url_for('static', filename='images/chata5.png')}}" class="member-block-image img-fluid" alt="Exkluzív">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Exkluzív</p>
-                  <span><em>Text.</em><br><br>
-                    Text.</span>
+                  <p class="text head fw-bold">Okolie</p>
+                  <span><em>Krásna trávnatá plocha a les priamo pri vás. Aj s parkovacím miestom až pre štyri autá.</em><br><br>
+                  </span>
                 </div>
               </div>
             </div>
@@ -251,12 +251,12 @@
             <div class="member-block">
               <div class="member-block-image-wrap">
                  <!-- Desktop obrázok -->
-                <img src="{{ url_for('static', filename ='images/romantika.png')}}" class="member-block-image img-fluid d-none d-md-block" alt="Romantika">
+                <img src="{{ url_for('static', filename ='images/chata6.png')}}" class="member-block-image img-fluid d-none d-md-block" alt="Romantika">
                 <!-- Mobilný obrázok -->
-                <img src="{{ url_for('static', filename ='images/romantika_mobil.png')}}" class="member-block-image img-fluid d-block d-md-none" alt="Romantika">
+                <img src="{{ url_for('static', filename ='images/chata6.png')}}" class="member-block-image img-fluid d-block d-md-none" alt="Romantika">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Text</p>
-                  <span><em>Text.</span>
+                  <p class="text head fw-bold">Krásny drevený obklad</p>
+                  <span><em>Chatka je obalená krásnym drevom ktoré okrem pekného výzoru zaručuje že vám bude teplo aj v zime</span>
                   </div>
               </div>
             </div>
@@ -466,69 +466,9 @@ document.addEventListener('DOMContentLoaded', function() {
         showBookingAlert('Chyba pri odosielaní rezervácie.');
     });
   });
-});
-
+}); // <-- This closes the DOMContentLoaded event listener function
 // Funkcia na zobrazenie modalu
-function showBookingAlert(message) {
-  document.getElementById('bookingAlertModalBody').innerText = message;
-  var modal = new bootstrap.Modal(document.getElementById('bookingAlertModal'));
-  modal.show();
-}
-</script>
-
-<script>
-let globalBookedDays = [];
-document.addEventListener('DOMContentLoaded', function() {
-  fetch('/booked-stay-dates')
-    .then(res => res.json())
-    .then(data => {
-      globalBookedDays = (data.booked || []).map(d => {
-        const [day, month, year] = d.split('/');
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-      });
-      const startInput = document.getElementById('bookingStart');
-      const endInput = document.getElementById('bookingEnd');
-      const flatpickrOptions = {
-        dateFormat: 'd/m/Y',
-        minDate: new Date().fp_incr(1),
-        locale: { firstDayOfWeek: 1 },
-        disableMobile: true,
-        disable: globalBookedDays,
-        onDayCreate: function(dObj, dStr, fp, dayElem) {
-          const d = dayElem.dateObj;
-          const formatted = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-          if (globalBookedDays.includes(formatted)) {
-            dayElem.classList.add('booked-day');
-          }
-        }
-      };
-      if (startInput) flatpickr(startInput, flatpickrOptions);
-      if (endInput) flatpickr(endInput, flatpickrOptions);
-    });
-
-  document.getElementById('bookingForm').addEventListener('submit', function(e) {
-    const start = document.getElementById('bookingStart').value;
-    const end = document.getElementById('bookingEnd').value;
-    if (start && end) {
-      let s = new Date(start.split('/').reverse().join('-'));
-      let e = new Date(end.split('/').reverse().join('-'));
-      let conflict = false;
-      while (s < e) {
-        const iso = s.toISOString().slice(0,10);
-        if (globalBookedDays.includes(iso)) {
-          conflict = true;
-          break;
-        }
-        s.setDate(s.getDate() + 1);
-      }
-      if (conflict) {
-        e.preventDefault();
-        showBookingAlert('Vami zvolený termín obsahuje obsadené dni. Prosím, vyberte iný termín.');
-        return false;
-      }
-    }
-  });
-});
+// (Removed duplicate showBookingAlert function)
 </script>
 
 <!-- Modal na správy -->
@@ -883,20 +823,19 @@ function showBookingAlert(message) {
 }
 
 .hover-text span {
-  font-size: 0.9rem;ceny pri hovernutí */
-  line-height: 1.5;image-wrap:hover .price {
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
-;
 /* Cena v kruhu */
 .member-block-image-wrap .price {
   position: absolute;
-  top: 10px;px rgba(0, 0, 0, 0.1); /* Jemný tieň */
-  right: 15px; 10px; /* Voliteľné: zaoblené rohy */
-  width: 40px;.3s ease; /* Plynulý prechod pri hover */
+  top: 10px;
+  right: 15px;
+  width: 40px;
   height: 40px;
   background: #C10001;
   color: white;
-  font-weight: 700;ess(95%);
+  font-weight: 700;
   font-size: 1rem;
   border-radius: 50%;
   display: flex;
