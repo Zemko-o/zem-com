@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Zem-Com</title>
+        <title>Zem-Stay</title>
 
         <!-- CSS FILES -->                
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,8 +104,7 @@
       </div>
 
       <!-- Text naľavo -->
-      <div class="col-lg-5 col-12 me-auto mb-3 mb-lg-0 text-lg-start text-center px-3 px-md-5">
-        <br>
+      <div class="col-lg-5 col-12 me-auto mb-3 mb-lg-0 text-lg-start text-center px-3 px-md-5" style="position: relative;">
         <h3 class="mb-3">Príroda a Súkromie</h3>
         <p><strong>Naša chatka</strong>, bude pre vás ideálna pre páry, rodiny a malé skupiny, pohodlne ubytuje až 5 osôb.</p>
         <p>Aj napriek tomu že sa budete nachádzať v srdci prírody je vybavenie moderné. Máme plne funkčnú kuchyňu vybavenú elektrickým šporákom, mikrovlnkou, rýchlovarnou kanvicou, teplovzdušnou fritézou a rúrou. V obývačke je 70 palcová televízia a v celej chatke je stropné kúrenie a Wifi. </p>
@@ -120,17 +119,21 @@
       <div class="col-lg-7 col-12">
         <div class="row">
           <!-- Dva obrázky hore -->
-          <div class="col-md-6 col-12 mb-2">
-            <div class="member-block">
-              <div class="member-block-image-wrap">
-                <img src="{{ url_for('static', filename='images/chata8.png') }}" class="member-block-image img-fluid" alt="Vírivka s hydromasážnymi tryskami">
-                <div class="hover-text">
-                  <p class="text head fw-bold">Spálna</p>
-                  <span>Pohodlná manželská posteľ pre 2</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="col-md-6 col-12 mb-2" style="position: relative;">
+  <div class="price" style="position: absolute; top: -30px; left: -40px; z-index: 2;">
+    70€
+    <div style="font-size: 0.65em;">objekt/noc</div>
+  </div>
+  <div class="member-block">
+    <div class="member-block-image-wrap">
+      <img src="{{ url_for('static', filename='images/chata8.png') }}" class="member-block-image img-fluid" alt="Spálna">
+      <div class="hover-text">
+        <p class="text head fw-bold">Spálna</p>
+        <span>Pohodlná manželská posteľ pre 2</span>
+      </div>
+    </div>
+  </div>
+</div>
 
           <div class="col-md-6 col-12 mb-2">
             <div class="member-block">
@@ -161,7 +164,10 @@
               </div>
             </div>
           </div>
-
+<div class="text-end mt-2">
+          <small class="text-muted">
+            Viac fotiek chatky nájdete v <a href="{{ url_for('galeria') }}" class="link-secondary" style="text-decoration: underline;">galérii</a>.
+          </small>
         </div>
       </div>
     </div>
@@ -378,7 +384,7 @@ let globalBookedDays = [];
 document.addEventListener('DOMContentLoaded', function() {
   fetch('/booked-stay-dates')
     .then(res => res.json())
-    .then(data => {
+    .then data => {
       globalBookedDays = (data.booked || []).map(d => {
         const [day, month, year] = d.split('/');
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
@@ -827,26 +833,24 @@ function showBookingAlert(message) {
   line-height: 1.5;
 }
 /* Cena v kruhu */
-.member-block-image-wrap .price {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
+.price {
   background: #C10001;
   color: white;
-  font-weight: 700;
-  font-size: 1rem;
+  padding: 10px 16px;
   border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  width: 90px;
+  height: 90px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  z-index: 5;
+  position: absolute;
 }
+
 
 /* Zobrazenie ceny pri hovernutí */
 .member-block-image-wrap:hover .price {
