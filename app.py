@@ -195,7 +195,10 @@ def send_stay_email(name, email, phone, start_date, end_date, notes):
 
 def add_to_google_calendar(name, email, date_str, timeslot, package, notes):
     try:
-        SERVICE_ACCOUNT_FILE = 'service_account.json'
+        if os.path.exists("service_account.json"):
+            SERVICE_ACCOUNT_FILE = "service_account.json"
+        else:
+            SERVICE_ACCOUNT_FILE = "/etc/secrets/service_account.json"
         SCOPES = ['https://www.googleapis.com/auth/calendar']
         CALENDAR_ID = 'zemencikova.gabriela@gmail.com'
 
