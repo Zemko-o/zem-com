@@ -309,6 +309,9 @@
         <div class="mb-3">
           <label for="bookingNotes" class="form-label">Poznámky</label>
           <textarea class="form-control" id="bookingNotes" rows="2" placeholder="Vaše poznámky"></textarea>
+          <small class="form-text text-muted d-block"></small>
+            <a href="#" id="sauny-helper-link" style="color:inherit; text-decoration:underline; cursor:pointer;">Informácie k pobytu</a>
+          </small>
         </div>
         <button type="submit" class="btn btn-primary w-100" style="background-color: #F2CC8F; color: #3D405B; border: none; border-radius: 0.75rem; font-weight: 600; font-size: 1.1em;">Odoslať rezerváciu</button>
       </form>
@@ -501,6 +504,19 @@ function showBookingAlert(message) {
   var modal = new bootstrap.Modal(document.getElementById('bookingAlertModal'));
   modal.show();
 }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const saunyHelperLink = document.getElementById('sauny-helper-link');
+  if (saunyHelperLink) {
+    saunyHelperLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = new bootstrap.Modal(document.getElementById('saunyInfoModal'));
+      modal.show();
+    });
+  }
+});
 </script>
 
 <style>
@@ -867,8 +883,65 @@ function showBookingAlert(message) {
 .member-block-image {
   filter: grayscale(10%) brightness(95%);
   transition: filter 0.4s ease;
+}
+
+small {
+  position: static;
+  display: block;
+  font-size: 0.95em;
+  margin-top: 0.25rem;
+}
+
+.modal-content {
+  border-radius: 1rem;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.modal-body {
+  font-size: 0.9rem;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+#pobyt-helper-link {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
 </style>
 
+
+<div class="modal fade" id="saunyInfoModal" tabindex="-1" aria-labelledby="saunyInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="font-size:0.93em; padding: 0.5rem 0.7rem;">
+      <div class="modal-header" style="padding-bottom:0;">
+        <h5 class="modal-title" id="saunyInfoModalLabel" style="font-size:1.08em;">Informácie k pobytu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="font-size:0.95em; color:#555;">
+        <div>- Check-in od 16:00, check-out do 11:00.</div>
+        <div>- V chatke je zákaz fajčenia (fajčiť len na terase).</div>
+        <div>- Domáce zvieratá nie sú povolené.</div>
+        <div>- V lete možnosť využitia súkromného bazéna pri chatke (po dohode).</div>
+        <div>- Bezplatné WiFi a parkovanie pri chatke.</div>
+        <div>- Raňajky neposkytujeme.</div>
+        <div style="margin-top:0.7em; font-weight:600;">
+          Zrušenie rezervácie najneskôr 24h vopred. Pri neskoršom zrušení alebo nedostavení sa môže byť účtovaný storno poplatok.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
     </body>
 </html>
