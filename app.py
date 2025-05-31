@@ -130,8 +130,23 @@ def send_email(name, email, date_str, timeslot, package, notes):
         subject_admin = 'Nová rezervácia'
         body_admin = f"""Nová rezervácia:\n\nMeno: {name}\nEmail: {email}\nDátum: {date_str}\nČas: {timeslot}\nBalíček: {package}\nPoznámky: {notes or '---'}"""
 
-        subject_user = 'Potvrdenie rezervácie'
-        body_user = f"""Ďakujeme za vašu rezerváciu {name}!\n\nTešíme sa na vás {date_str} o {timeslot}.\nBalíček: {package}\n\nTím Zem-Zen"""
+        subject_user = 'Potvrdenie rezervácie wellness zážitku'
+        body_user = f"""\
+Milý/á {name},
+
+ďakujeme, že ste si rezervovali wellness zážitok v našom centre – tešíme sa na Vás {date_str} o {timeslot}.  
+Vybraný balíček: **{package}**
+
+Prosíme, dostavte sa aspoň 10 minút pred začiatkom, aby ste si pobyt mohli naplno vychutnať. **Zrušenie rezervácie je možné najneskôr 24 hodín pred termínom.**  
+V prípade neskoršieho zrušenia alebo nedostavenia sa môže byť účtovaný storno poplatok.
+
+Ak máte akékoľvek otázky alebo špeciálne požiadavky, neváhajte nás kontaktovať.
+
+Prajeme Vám krásny deň!
+
+S pozdravom,  
+Tím Zem-Zen
+"""
 
         msg_admin = MIMEMultipart()
         msg_admin['From'] = smtp_user
@@ -167,7 +182,30 @@ def send_stay_email(name, email, phone, start_date, end_date, notes):
         body_admin = f"""Nová rezervácia pobytu:\n\nMeno: {name}\nEmail: {email}\nTelefón: {phone}\nOd: {start_date}\nDo: {end_date}\nPoznámky: {notes or '---'}"""
 
         subject_user = 'Potvrdenie rezervácie pobytu'
-        body_user = f"""Ďakujeme za vašu rezerváciu, {name}!\n\nTešíme sa na vás od {start_date} do {end_date}.\n\nTím Zem-Com"""
+        body_user = f"""\
+Milý/á {name},
+
+ďakujeme, že ste si vybrali pobyt u nás – Vaša rezervácia od {start_date} do {end_date} bola úspešne potvrdená. Tešíme na Vašu návštevu!
+
+Dôležité informácie k Vášmu pobytu:
+
+- Príchod (check-in) je možný od 16:00, odchod (check-out) prosíme najneskôr do 11:00.
+- V interiéri chatky platí prísny zákaz fajčenia – fajčiť je možné iba vonku na terase.
+- Ubytovanie nie je vhodné pre domáce zvieratá.
+- Počas letných mesiacov je po dohode k dispozícii súkromný bazén, ktorý sa nachádza pri chatke.
+- Využiť môžete bezplatné WiFi pripojenie a parkovanie priamo pri chatke.
+- Raňajky neposkytujeme.
+
+**Zrušenie rezervácie je možné najneskôr 24 hodín pred rezervovaným dátumom..**  
+V prípade neskoršieho zrušenia alebo nedostavenia sa môže byť účtovaný storno poplatok.
+
+Ak máte akékoľvek otázky alebo špeciálne požiadavky, sme Vám radi k dispozícii – stačí nám napísať alebo zavolať.
+
+Prajeme krásny deň a tešíme sa na Vás!
+
+S pozdravom,
+Tím Zem-Com
+"""
 
         msg_admin = MIMEMultipart()
         msg_admin['From'] = smtp_user
