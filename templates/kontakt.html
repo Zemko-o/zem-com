@@ -183,9 +183,11 @@
 
         <!-- Team/Contact Info Section -->
         <section class="team-section-white container mb-4 py-5">
-          <div class="row align-items-center mb-5">
-            <div class="col-md-7 mb-4 mb-md-0">
-              <h2 class="mb-4 contact-hero-title">Tím Zem-Com</h2>
+          <h2 class="mb-4 contact-hero-title text-center">Tím Zem-Com</h2>
+          <div class="row justify-content-center align-items-center">
+            <!-- Filip -->
+            <div class="col-md-6 text-center mb-4 mb-md-0">
+              <img src="{{ url_for('static', filename='images/members/filip_ako_nič.png') }}" alt="Profilový obrázok" class="team-profile-pic">
               <div class="team-info-label">Meno:</div>
               <div class="team-info-value">Filip Zemenčík</div>
               <div class="team-info-label">Email:</div>
@@ -193,21 +195,15 @@
               <div class="team-info-label">Telefón:</div>
               <div class="team-info-value"><a href="tel:+421901701011">+421 901 701 011</a></div>
             </div>
-            <div class="col-md-5 text-center">
-              <img src="{{ url_for('static', filename='images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg') }}" alt="Profilový obrázok" class="team-profile-pic">
-            </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-md-7 mb-4 mb-md-0">
+            <!-- Gabriela -->
+            <div class="col-md-6 text-center">
+              <img src="{{ url_for('static', filename='images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg') }}" alt="Profilový obrázok" class="team-profile-pic">
               <div class="team-info-label">Meno:</div>
               <div class="team-info-value">Gabriela Zemenčíková</div>
               <div class="team-info-label">Email:</div>
               <div class="team-info-value"><a href="mailto:zemencikovagabriela@gacel.sk">zemencikovagabriela@gacel.sk</a></div>
               <div class="team-info-label">Telefón:</div>
               <div class="team-info-value"><a href="tel:+421901701011">+421 901 701 012</a></div>
-            </div>
-            <div class="col-md-5 text-center">
-              <img src="{{ url_for('static', filename='images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg') }}" alt="Profilový obrázok" class="team-profile-pic">
             </div>
           </div>
         </section>
