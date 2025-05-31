@@ -102,9 +102,23 @@
       </div>
 
       <!-- Text naľavo -->
-      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0 text-lg-start text-center px-3 px-md-5">
+      <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0 text-lg-start text-center px-3 px-md-5" style="position:relative;">
+        <!-- Logo vľavo dole na desktope (nemeníme) -->
+        <img src="{{ url_for('static', filename='images/logo-zen.png') }}"
+             alt="Zem-Zen logo"
+             class="d-none d-md-block  wellness-logo-desktop"
+             style="position:absolute; left:290px; top:15px; width:100px; height:auto; z-index:10; pointer-events:none; transform: rotate(-16deg);">
         <br><br><br>
-        <h3 class="mb-3">Wellness centrum</h3>
+        <!-- Nadpis s logom vedľa na mobile -->
+        <h3 class="mb-3 d-flex align-items-center justify-content-center d-md-none" style="gap:0.5em;">
+          Wellness centrum
+          <img src="{{ url_for('static', filename='images/logo-zen.png') }}"
+               alt="Zem-Zen logo"
+               class="wellness-logo-mobile"
+               style="width:80px; height:auto; margin-left:0.5em; transform: rotate(-18deg); vertical-align: middle;">
+        </h3>
+        <!-- Nadpis pre desktop -->
+        <h3 class="mb-3 d-none d-md-block">Wellness centrum</h3>
         <p><strong>Zem-Zen</strong>, je privátne wellness centrum, kde si v úplnom súkromí môžete dopriať zaslúžený oddych. Nájdete u nás štyri druhy sáun – infra, bylinnú, parnú a fínsku, vírivku a oddychovú zónu.</p>
         <p>Ponúkame viacero tematických balíčkov, či už túžite po romantike, regenerácii alebo chvíľke pokoja s rodinou či priateľmi.</p>
       </div>
@@ -560,6 +574,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <style>
+  @media (max-width: 1023px) {
+  .wellness-logo-mobile {
+    width: 80px !important;
+    height: auto !important;
+  }
+}
+
 .flatpickr-calendar {
   font-size: 1rem;
   z-index: 9999 !important;
@@ -935,6 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
     width: 100%;
   }
 }
+
 
 @media (max-width: 768px) {
   .about-section .col-lg-5,
