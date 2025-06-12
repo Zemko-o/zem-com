@@ -116,7 +116,9 @@
 
                     <div class="col-lg-12 col-12 text-center">
                         <h2 class="mb-lg-5 mb-4 d-flex align-items-center justify-content-center" style="gap:0.5em;">
+                           <a href="{{ url_for('wellness') }}" style="text-decoration: none; color: inherit;" onmouseover="this.style.color='#f2cc8f'">
                           O Zem-Zen
+                          </a>
                         </h2>
                     </div>
 
@@ -179,13 +181,16 @@
                 <div class="row">
 
                     <div class="col-lg-12 col-12 text-center">
-                        <h2 class="mb-lg-5 mb-4">O Zem-Stay</h2>
+                      <h2 class="mb-lg-5 mb-4">
+                        <a href="{{ url_for('pobyt') }}" style="text-decoration: none; color: inherit;" onmouseover="this.style.color='#f2cc8f'" onmouseout="this.style.color='inherit'">
+                          O Zem-Stay
+                        </a>
+                      </h2>
                     </div>
-
                     <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
                         <h3 class="mb-3">Pohodlie a štandart</h3>
 
-                        <p><strong>Zem-Stay</strong>, je chatka s nádherným moderným vybavením. Môžete si oddýchnuť na kraji prírody ďaleko od mestského ruchu a slnečného smogu.</p>
+                        <p><strong>Zem-Stay</strong>, je chatka s nádherným moderným vybavením. Môžete si oddýchnuť na kraji prírody ďaleko od mestského ruchu.</p>
 
                         <p>Aj napriek tomu že budete v pokoji prírody naše ubytovanie je stále moderne vybavené s elektrikou, vodou, televízorom a internetovým pripojením.</p>
                     </div>
@@ -350,7 +355,7 @@
                                         <div class="form-floating">
                                             <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
                                             
-                                            <label for="floatingInput">vaša emailová adresa</label>
+                                            <label for="floatingInput">Vaša emailová adresa</label>
                                         </div>
                                     </div>
 
@@ -416,16 +421,16 @@
                     </div>
 
                     <div class="col-lg-3 col-12">
-                        <h5 class="site-footer-title mb-4">Vyberte si termín</h5>
+                        <h5 class="site-footer-title mb-4">Otváracie hodiny</h5>
 
                         <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
                             <span>Pon-Štv</span>
-                            14:30 - 20:30
+                            10:00 - 22:30
                         </p>
 
                         <p class="d-flex me-lg-3">
                             <span>Pia-Ned</span>
-                            14:00 - 22:30
+                            10:00 - 22:30
                         </p>
                         <br>
                         <p class="copyright-text">Copyright © 2025 Zem-Com</p>
