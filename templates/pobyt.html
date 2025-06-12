@@ -106,8 +106,8 @@
       <!-- Text naľavo -->
       <div class="col-lg-5 col-12 me-auto mb-3 mb-lg-0 text-lg-start text-center px-3 px-md-5" style="position: relative;">
         <h3 class="mb-3">Príroda a Súkromie</h3>
-        <p><strong>Naša chatka</strong>, bude pre vás ideálna pre páry, rodiny a malé skupiny, pohodlne ubytuje až 5 osôb.</p>
-        <p>Aj napriek tomu že sa budete nachádzať v srdci prírody je vybavenie moderné. Máme plne funkčnú kuchyňu vybavenú elektrickým šporákom, mikrovlnkou, rýchlovarnou kanvicou, teplovzdušnou fritézou a rúrou. V obývačke je 70 palcová televízia a v celej chatke je stropné kúrenie a Wifi. </p>
+        <p><strong>Naša chatka</strong>, je ideálna pre páry, rodiny a malé skupiny, pohodlne ubytuje až 5 osôb.</p>
+        <p>Aj napriek tomu že sa budete nachádzať v srdci prírody je vybavenie moderné. Máme plne funkčnú kuchyňu vybavenú elektrickým sporákom, mikrovlnkou, rýchlovarnou kanvicou, teplovzdušnou fritézou a rúrou. V obývačke je 70 palcová televízia a v celej chatke je stropné kúrenie a Wifi. </p>
         <p>Súčasťou chatky je aj terasa s výhľadom na prírodu, kde Vaše raňajky alebo šálka kávy chutí najlepšie! Parkovať môžete pohodolne hneď vedľa chatky na vyhradenom parkovisku. </p>    
       </div>
       <!-- Nadpis pre MOBIL -->
@@ -128,8 +128,8 @@
     <div class="member-block-image-wrap">
       <img src="{{ url_for('static', filename='images/chata8.png') }}" class="member-block-image img-fluid" alt="Spálna">
       <div class="hover-text">
-        <p class="text head fw-bold">Spálna</p>
-        <span>Pohodlná manželská posteľ pre 2</span>
+        <p class="text head fw-bold">Spálňa</p>
+        <span>Manželská posteľ s kvalitným matracom pre nerušený spánok, doplnená o praktické nočné stolíky so svetlom na čítanie a dostatok úložného priestoru v skrini.</span>
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
                 <img src="{{ url_for('static', filename='images/chata7.png') }}" class="member-block-image img-fluid" alt="Sauna">
                 <div class="hover-text">
                   <p class="text head fw-bold">Izba</p>
-                  <span>Na posteli sa pohodlne jeden vyspí no môže byť použitá aj ako pracovňa</span>
+                  <span>Príjemná izba s pohodlnou jednolôžkovou posteľou, ktorá môže slúžiť aj ako pracovňa či študovňa. Nájdete tu funkčný pracovný stôl a skriňu na uskladnenie vecí.</span>
                 </div>
               </div>
             </div>
@@ -153,21 +153,33 @@
           </div>
 
           <!-- Jeden obrázok dole -->
-          <div class="col-md-12 col-12">
+          <div class="col-md-6 col-12">
             <div class="member-block">
               <div class="member-block-image-wrap">
                 <img src="{{ url_for('static', filename='images/chata9.png') }}" class="member-block-image img-fluid" alt="" style="object-fit: cover; object-position: bottom; height: 350px; width: 100%;">
                 <div class="hover-text">
                   <p class="text head fw-bold">Obývačka</p>
-                  <span>Vybavená okrem všetkého aj rozkladacím gaučom kde sa vyspia daľší dvaja ľudia</span>
+                  <span>Priestranná obývačka je prepojená s kuchyňou, čo vytvára otvorený priestor ideálny na spoločné chvíle. Nájdete tu pohodlný rozkladací gauč pre ďalších dvoch hostí a tiež písací stôl. V zime si môžete spríjemniť večery pri krbe a vychutnať si útulnú atmosféru.</span>
                 </div>
               </div>
             </div>
           </div>
-<div class="text-end mt-2">
-          <small class="text-muted">
-            Viac fotiek chatky nájdete v <a href="{{ url_for('galeria') }}" class="link-secondary" style="text-decoration: underline;">galérii</a>.
-          </small>
+          <div class="col-md-6 col-12 mb-2">
+            <div class="member-block">
+              <div class="member-block-image-wrap">
+                <img src="{{ url_for('static', filename='images/chata7.png') }}" class="member-block-image img-fluid" alt="Sauna">
+                <div class="hover-text">
+                  <p class="text head fw-bold">Kúpeľňa</p>
+                  <span>Moderná kúpeľňa so sprchovacím kútom, toaletou a veľkým zrkadlom. Všetko zariadené tak, aby ste sa cítili komfortne a pohodlne počas svojej návštevy.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+ <div class="text-end mt-2">
+    <small class="text-muted">
+      Viac fotiek chatky nájdete v
+      <a href="{{ url_for('galeria') }}" class="link-secondary" style="text-decoration: underline;">galérii</a>.
+    </small>
         </div>
       </div>
     </div>
@@ -227,9 +239,8 @@
               <div class="member-block-image-wrap">
                 <img src="{{ url_for('static', filename='images/chata4.jpeg') }}" class="member-block-image img-fluid" alt="Klasik">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Teraska</p>
-                  <span><em>Na terase si môžete vychutnať kávičku s krásnym výhľadom</em><br><br>
-                  </span>
+                  <p class="text head fw-bold">Terasa</p>
+                  <span>Užite si pokojné rána alebo večery na terase s nádherným výhľadom na okolitú prírodu, ideálne miesto na rannú kávu či večerný relax.</span>
                 </div>
               </div>
             </div>
@@ -242,8 +253,7 @@
                 <img src="{{ url_for('static', filename='images/chata5.png')}}" class="member-block-image img-fluid" alt="Exkluzív">
                 <div class="hover-text">
                   <p class="text head fw-bold">Okolie</p>
-                  <span><em>Krásna trávnatá plocha a les priamo pri vás. Aj s parkovacím miestom až pre štyri autá.</em><br><br>
-                  </span>
+                  <span>Krásna trávnatá plocha a les priamo pri Vás. K dispozícii je parkovisko s miestom pre štyri autá.</span>
                 </div>
               </div>
             </div>
@@ -261,8 +271,8 @@
                 <!-- Mobilný obrázok -->
                 <img src="{{ url_for('static', filename ='images/chata6.png')}}" class="member-block-image img-fluid d-block d-md-none" alt="Romantika">
                 <div class="hover-text">
-                  <p class="text head fw-bold">Krásny drevený obklad</p>
-                  <span><em>Chatka je obalená krásnym drevom ktoré okrem pekného výzoru zaručuje že vám bude teplo aj v zime</span>
+                  <p class="text head fw-bold">Bazén & Altánok</p>
+                  <span>Len pár krokov od chatky sa nachádza altánok a bazén, ktorý je počas letných mesiacov ideálnym miestom na osvieženie a príjemné chvíle s rodinou či priateľmi.</span>
                   </div>
               </div>
             </div>
@@ -335,17 +345,18 @@
                         </a>
                     </div>
 
-                    <div class="col-lg-3 col-12">
-                        <h5 class="site-footer-title mb-4 mt-4">Vyberte si termín</h5>
+                     <div class="col-lg-3 col-12">
+                      <br>
+                        <h5 class="site-footer-title mb-4">Otváracie hodiny</h5>
 
                         <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
                             <span>Pon-Štv</span>
-                            14:30 - 20:30
+                            10:00 - 22:30
                         </p>
 
                         <p class="d-flex me-lg-3">
                             <span>Pia-Ned</span>
-                            14:00 - 22:30
+                            10:00 - 22:30
                         </p>
                         <br>
                         <p class="copyright-text">Copyright © 2025 Zem-Com</p>
