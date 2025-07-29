@@ -121,10 +121,10 @@ def book():
 
 def send_email(name, email, date_str, timeslot, package, notes):
     try:
-        smtp_server = 'smtp.gmail.com'
+        smtp_server = 'mail.webhouse.sk'
         smtp_port = 587
-        smtp_user = 'filipzemencik@gmail.com'
-        smtp_password = 'jvuk amlc dcrk uzrz'  # alebo tvoje heslo do Gmail app
+        smtp_user = 'zem-zen@gacel.sk'
+        smtp_password = 'Zem-zen_2025'  # alebo tvoje heslo do Gmail app
 
         to_admin = 'zemencikova.gabriela@gmail.com'
         subject_admin = 'Nová rezervácia'
