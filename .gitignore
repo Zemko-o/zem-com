@@ -1,2 +1,6 @@
 .env
-git add .gitignore
+bookings.db
+bookings.db
+venv/
+instance/
+service_account.json
