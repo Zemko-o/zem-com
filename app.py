@@ -13,7 +13,7 @@ from googleapiclient.discovery import build
 from dotenv import load_dotenv
 load_dotenv()
 
-from database.booking import db, Booking
+from database.booking import db, Booking, StayBooking
 
 app = Flask(__name__)
 
@@ -314,18 +314,19 @@ def add_stay_to_google_calendar(name, email, phone, start_date, end_date, notes)
 @app.route('/booked-stay-dates')
 def booked_stay_dates():
     booked = set()
-    try:
-        with open('stay_bookings.csv', mode='r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                start = datetime.strptime(row['Start Date'], "%d/%m/%Y")
-                end = datetime.strptime(row['End Date'], "%d/%m/%Y")
-                d = start
-                while d < end:  # checkout day is free
-                    booked.add(d.strftime("%d/%m/%Y"))
-                    d += timedelta(days=1)
-    except Exception as e:
-        print("Chyba pri čítaní stay_bookings.csv:", e)
+
+    # Query all stay bookings from the database
+    stays = StayBooking.query.all()
+
+    # Add all dates between start_date and end_date to the booked set
+    for stay in stays:
+        start = datetime.strptime(stay.start_date, "%d/%m/%Y")
+        end = datetime.strptime(stay.end_date, "%d/%m/%Y")
+        d = start
+        while d < end:  # checkout day is free
+            booked.add(d.strftime("%d/%m/%Y"))
+            d += timedelta(days=1)
+
     return jsonify({"booked": sorted(booked)})
 
 @app.route('/book-stay', methods=['POST'])
@@ -348,45 +349,43 @@ def book_stay():
         end_dt = datetime.strptime(end_date, "%d/%m/%Y")
         if (end_dt - start_dt).days < 3:
             return "Pobyt musí mať minimálne 3 noci", 400
-    except Exception:
+    except ValueError:
         return "Neplatný formát dátumu", 400
 
-    # --- kontrola kolízie s existujúcimi rezerváciami ---
+    # Check for date conflicts in the database
+    stays = StayBooking.query.all()
     booked = set()
-    try:
-        with open('stay_bookings.csv', mode='r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                existing_start = datetime.strptime(row['Start Date'], "%d/%m/%Y")
-                existing_end = datetime.strptime(row['End Date'], "%d/%m/%Y")
-                d = existing_start
-                while d < existing_end:  # posledný deň je voľný
-                    booked.add(d.strftime("%d/%m/%Y"))
-                    d += timedelta(days=1)
-    except FileNotFoundError:
-        # Ak súbor ešte neexistuje, to je OK
-        pass
-    except Exception as e:
-        print("Chyba pri kontrole kolízie:", e)
+    for stay in stays:
+        existing_start = datetime.strptime(stay.start_date, "%d/%m/%Y")
+        existing_end = datetime.strptime(stay.end_date, "%d/%m/%Y")
+        d = existing_start
+        while d < existing_end:  # checkout day is free
+            booked.add(d.strftime("%d/%m/%Y"))
+            d += timedelta(days=1)
 
-    # Skontroluj, či niektorý z požadovaných dní už nie je obsadený
+    # Check if any requested dates are already booked
     d = start_dt
     while d < end_dt:
         if d.strftime("%d/%m/%Y") in booked:
             return "Zvolený termín sa prekrýva s inou rezerváciou.", 400
         d += timedelta(days=1)
 
-    # --- uloženie do CSV ---
-    with open('stay_bookings.csv', mode='a', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        if file.tell() == 0:
-            writer.writerow(['Name', 'Email', 'Phone', 'Start Date', 'End Date', 'Notes'])
-        writer.writerow([name, email, phone, start_date, end_date, notes])
+    # Save the stay booking to the database
+    new_stay = StayBooking(
+        name=name,
+        email=email,
+        phone=phone,
+        start_date=start_date,
+        end_date=end_date,
+        notes=notes
+    )
+    db.session.add(new_stay)
+    db.session.commit()
 
-    # Po úspešnom zápise pošli email
+    # Send email confirmation
     send_stay_email(name, email, phone, start_date, end_date, notes)
 
-    # Pridaj do Google kalendára
+    # Add to Google Calendar
     add_stay_to_google_calendar(name, email, phone, start_date, end_date, notes)
 
     return jsonify({"message": "Rezervácia bola úspešne uložená!"})
