@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-import csv
+from flask_sqlalchemy import SQLAlchemy
+#import csv
 import os
 from datetime import datetime, timedelta
 import smtplib
@@ -8,14 +9,28 @@ from email.mime.multipart import MIMEMultipart
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-app = Flask(__name__)
-CSV_FILE = 'bookings.csv'
+# load environment variables
+from dotenv import load_dotenv
+load_dotenv()
 
-# Inicializácia CSV
-if not os.path.exists(CSV_FILE):
-    with open(CSV_FILE, mode='w', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow(['Name', 'Email', 'Phone', 'Date', 'Timeslot', 'Package', 'Notes'])
+from database.booking import db, Booking
+
+app = Flask(__name__)
+
+# Configure the database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bookings.db'  # Use SQLite database
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize the database
+db.init_app(app)
+
+# CSV_FILE = 'bookings.csv'
+
+# # Inicializácia CSV
+# if not os.path.exists(CSV_FILE):
+#     with open(CSV_FILE, mode='w', newline='') as file:
+#         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+#         writer.writerow(['Name', 'Email', 'Phone', 'Date', 'Timeslot', 'Package', 'Notes'])
 
 # -------- ROUTES --------
 
@@ -46,32 +61,31 @@ def booked_timeslots():
         return jsonify([])
 
     try:
+        # Parse the date from the request
         parsed_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d/%m/%Y")
     except ValueError:
         return jsonify([])
 
-    booked_slots = set()
-    with open(CSV_FILE, mode='r', encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-        reader.fieldnames = [f.strip('"') for f in reader.fieldnames]
-        for row in reader:
-            if row.get('Date') == parsed_date:
-                booked_slots.add(row.get('Timeslot', ''))
+    # Query the database for booked timeslots on the given date
+    booked_slots = Booking.query.filter_by(date=parsed_date).all()
+    timeslots = [booking.timeslot for booking in booked_slots]
 
-    return jsonify(list(booked_slots))
+    return jsonify(timeslots)
+
 
 @app.route('/booked-dates')
 def booked_dates():
+    # Query all bookings from the database
+    bookings = Booking.query.all()
     fully_booked = {}
-    with open(CSV_FILE, mode='r') as file:
-        reader = csv.DictReader(file)
-        reader.fieldnames = [f.strip('"') for f in reader.fieldnames]
-        for row in reader:
-            date = row.get('Date')
-            timeslot = row.get('Timeslot', '')
-            if date:
-                fully_booked.setdefault(date, []).append(timeslot)
-    disabled_dates = [d for d, slots in fully_booked.items() if len(set(slots)) >= 3]
+
+    # Group bookings by date and count timeslots
+    for booking in bookings:
+        fully_booked.setdefault(booking.date, []).append(booking.timeslot)
+
+    # Identify dates where all timeslots are booked (3 timeslots per day)
+    disabled_dates = [date for date, slots in fully_booked.items() if len(set(slots)) >= 3]
+
     return jsonify({
         'disabledDates': sorted(disabled_dates),
         'fullyBooked': fully_booked
@@ -88,31 +102,38 @@ def book():
     timeslot = data.get('timeslot')
     notes = data.get('notes', '')
 
+    # Validate required fields
     if not name or not email or not date_str or not package or not timeslot:
         return "Všetky polia sú povinné", 400
 
     try:
+        # Validate date format
         booking_date = datetime.strptime(date_str, "%d/%m/%Y")
-    except Exception:
+    except ValueError:
         return "Neplatný formát dátumu", 400
 
-    # Overenie konfliktu
-    with open(CSV_FILE, mode='r') as file:
-        reader = csv.DictReader(file)
-        reader.fieldnames = [f.strip('"') for f in reader.fieldnames]
-        for row in reader:
-            if row['Date'] == date_str and row['Timeslot'] == timeslot:
-                return f"Čas {timeslot} je už zarezervovaný pre {date_str}.", 409
+    # Check for conflicts in the database
+    existing_booking = Booking.query.filter_by(date=date_str, timeslot=timeslot).first()
+    if existing_booking:
+        return f"Čas {timeslot} je už zarezervovaný pre {date_str}.", 409
 
-    # Zapísať do CSV
-    with open(CSV_FILE, mode='a', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow([name, email, phone, date_str, timeslot, package, notes])
+    # Save the booking to the database
+    new_booking = Booking(
+        name=name,
+        email=email,
+        phone=phone,
+        date=date_str,
+        timeslot=timeslot,
+        package=package,
+        notes=notes
+    )
+    db.session.add(new_booking)
+    db.session.commit()
 
-    # Poslať email
+    # Send email confirmation
     send_email(name, email, date_str, timeslot, package, notes)
 
-    # Pridať do kalendára
+    # Add to Google Calendar
     add_to_google_calendar(name, email, date_str, timeslot, package, notes)
 
     return "Rezervácia bola úspešne uložená!"
@@ -124,7 +145,7 @@ def send_email(name, email, date_str, timeslot, package, notes):
         smtp_server = 'mail.webhouse.sk'
         smtp_port = 587
         smtp_user = 'zem-zen@gacel.sk'
-        smtp_password = 'Zem-zen_2025'  # alebo tvoje heslo do Gmail app
+        smtp_password = os.getenv('zemzen_heslo')
 
         to_admin = 'zemencikova.gabriela@gmail.com'
         subject_admin = 'Nová rezervácia'
@@ -175,7 +196,7 @@ def send_stay_email(name, email, phone, start_date, end_date, notes):
         smtp_server = 'smtp.gmail.com'
         smtp_port = 587
         smtp_user = 'filipzemencik@gmail.com'
-        smtp_password = 'jvuk amlc dcrk uzrz'  # alebo tvoje heslo do Gmail app
+        smtp_password = os.getenv('filip_gmail_heslo')
 
         to_admin = 'zemencikova.gabriela@gmail.com'
         subject_admin = 'Nová rezervácia pobytu'
