@@ -13,16 +13,11 @@ from googleapiclient.discovery import build
 from dotenv import load_dotenv
 load_dotenv()
 
-from database.booking import db, Booking, StayBooking
+from database import booking as booking_db
 
 app = Flask(__name__)
 
-# Configure the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bookings.db'  # Use SQLite database
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Initialize the database
-db.init_app(app)
+# Using Supabase via `database.booking` helpers. Configure SUPABASE_URL and SUPABASE_KEY in env.
 
 # CSV_FILE = 'bookings.csv'
 
@@ -66,17 +61,17 @@ def booked_timeslots():
     except ValueError:
         return jsonify([])
 
-    # Query the database for booked timeslots on the given date
-    booked_slots = Booking.query.filter_by(date=parsed_date).all()
-    timeslots = [booking.timeslot for booking in booked_slots]
+    # Query Supabase for booked timeslots on the given date
+    booked_slots = booking_db.get_bookings_by_date(parsed_date)
+    timeslots = [booking.get('timeslot') for booking in booked_slots]
 
     return jsonify(timeslots)
 
 
 @app.route('/booked-dates')
 def booked_dates():
-    # Query all bookings from the database
-    bookings = Booking.query.all()
+    # Query all bookings from Supabase
+    bookings = booking_db.get_all_bookings()
     fully_booked = {}
 
     # Group bookings by date and count timeslots
@@ -112,23 +107,22 @@ def book():
     except ValueError:
         return "Neplatný formát dátumu", 400
 
-    # Check for conflicts in the database
-    existing_booking = Booking.query.filter_by(date=date_str, timeslot=timeslot).first()
+    # Check for conflicts in Supabase
+    existing_booking = booking_db.find_booking_by_date_and_timeslot(date_str, timeslot)
     if existing_booking:
         return f"Čas {timeslot} je už zarezervovaný pre {date_str}.", 409
 
-    # Save the booking to the database
-    new_booking = Booking(
-        name=name,
-        email=email,
-        phone=phone,
-        date=date_str,
-        timeslot=timeslot,
-        package=package,
-        notes=notes
-    )
-    db.session.add(new_booking)
-    db.session.commit()
+    # Save the booking to Supabase
+    booking_payload = {
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "date": date_str,
+        "timeslot": timeslot,
+        "package": package,
+        "notes": notes,
+    }
+    booking_db.create_booking(booking_payload)
 
     # Send email confirmation
     send_email(name, email, date_str, timeslot, package, notes)
@@ -315,8 +309,8 @@ def add_stay_to_google_calendar(name, email, phone, start_date, end_date, notes)
 def booked_stay_dates():
     booked = set()
 
-    # Query all stay bookings from the database
-    stays = StayBooking.query.all()
+    # Query all stay bookings from Supabase
+    stays = booking_db.get_all_stays()
 
     # Add all dates between start_date and end_date to the booked set
     for stay in stays:
@@ -353,7 +347,7 @@ def book_stay():
         return "Neplatný formát dátumu", 400
 
     # Check for date conflicts in the database
-    stays = StayBooking.query.all()
+    stays = booking_db.get_all_stays()
     booked = set()
     for stay in stays:
         existing_start = datetime.strptime(stay.start_date, "%d/%m/%Y")
@@ -370,17 +364,16 @@ def book_stay():
             return "Zvolený termín sa prekrýva s inou rezerváciou.", 400
         d += timedelta(days=1)
 
-    # Save the stay booking to the database
-    new_stay = StayBooking(
-        name=name,
-        email=email,
-        phone=phone,
-        start_date=start_date,
-        end_date=end_date,
-        notes=notes
-    )
-    db.session.add(new_stay)
-    db.session.commit()
+    # Save the stay booking to Supabase
+    stay_payload = {
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "start_date": start_date,
+        "end_date": end_date,
+        "notes": notes,
+    }
+    booking_db.create_stay(stay_payload)
 
     # Send email confirmation
     send_stay_email(name, email, phone, start_date, end_date, notes)
